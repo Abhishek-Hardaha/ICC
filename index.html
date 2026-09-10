@@ -129,21 +129,23 @@
             z-index: 1;
             border-radius: 9999px;
             padding: 1.5px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .btn-wrap-blue   .btn-pill-outer {
-            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(96,165,250,0.14) 45%, rgba(37,99,235,0.25) 100%);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8), 0 0 45px -10px rgba(37,99,235,0.45);
-        }
-        .btn-wrap-purple .btn-pill-outer {
-            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(192,132,252,0.14) 45%, rgba(168,85,247,0.25) 100%);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8), 0 0 45px -10px rgba(168,85,247,0.45);
+            /* Idle: fully neutral — just a faint dark border via background */
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+            transition: transform 0.35s ease, box-shadow 0.45s ease, background 0.45s ease;
         }
 
-        /* Hover — lift + bloom */
-        .btn-wrap:hover .btn-pill-outer { transform: translateY(-4px); }
-        .btn-wrap-blue:hover   .btn-pill-outer { box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(37,99,235,0.75); }
-        .btn-wrap-purple:hover .btn-pill-outer { box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(168,85,247,0.75); }
+        /* Hover — gradient border ring appears + glow blooms */
+        .btn-wrap-blue:hover   .btn-pill-outer {
+            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(96,165,250,0.18) 45%, rgba(37,99,235,0.28) 100%);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(37,99,235,0.75);
+            transform: translateY(-4px);
+        }
+        .btn-wrap-purple:hover .btn-pill-outer {
+            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(192,132,252,0.18) 45%, rgba(168,85,247,0.28) 100%);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(168,85,247,0.75);
+            transform: translateY(-4px);
+        }
         .btn-wrap:active .btn-pill-outer { transform: scale(0.96) !important; }
 
         /* ─── Inner glass surface ─── */
