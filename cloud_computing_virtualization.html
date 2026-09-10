@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing & Virtualization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Outfit"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        space: '#05050A',
+                        surface: 'rgba(255, 255, 255, 0.03)',
+                        surfaceHover: 'rgba(255, 255, 255, 0.08)',
+                        borderGlow: 'rgba(255, 255, 255, 0.1)',
+                        accent: {
+                            cyan: '#06b6d4',
+                            blue: '#3b82f6',
+                            indigo: '#6366f1',
+                            purple: '#a855f7',
+                            emerald: '#10b981',
+                            rose: '#f43f5e',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #05050A; 
+            color: #f8fafc; 
+            overflow: hidden; 
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 60%);
+        }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+        .slide { 
+            display: none; 
+            opacity: 0; 
+            transform: scale(0.98) translateY(10px); 
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+        .slide.active { 
+            display: flex; 
+            opacity: 1; 
+            transform: scale(1) translateY(0); 
+        }
+        
+        .glass-panel { 
+            background: var(--tw-colors-surface); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--tw-colors-borderGlow); 
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(30, 30, 40, 0.4) 0%, rgba(10, 10, 15, 0.6) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+        .glass-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-stagger > * { opacity: 0; animation: slideUpFade 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+        .animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+        .animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+        .animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+        .animate-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+        .animate-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+        .animate-stagger > *:nth-child(7) { animation-delay: 0.7s; }
+        .animate-stagger > *:nth-child(8) { animation-delay: 0.8s; }
+
+        .concept-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.70rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid currentColor;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .accordion-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out; }
+        .accordion-content.open { grid-template-rows: 1fr; }
+        .accordion-inner { overflow: hidden; }
+
+        .flow-line { position: absolute; background: currentColor; opacity: 0.3; z-index: -1; }
+    </style>
+</head>
+<body class="flex flex-col h-screen w-full relative antialiased selection:bg-accent-indigo/30 selection:text-white">
+
+    <div id="toc-modal" class="fixed inset-0 bg-black/95 z-[60] hidden flex-col items-center justify-center backdrop-blur-3xl p-4 transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-6xl rounded-3xl p-8 relative flex flex-col h-[85vh] shadow-2xl border border-white/10">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4 shrink-0">
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Module <span class="text-accent-indigo font-light">Index</span></h2>
+                <button onclick="toggleTOC()" class="p-2 bg-white/5 hover:bg-accent-rose/20 hover:text-accent-rose rounded-xl text-gray-400 transition-all border border-transparent hover:border-accent-rose/30 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1.5 overflow-y-auto pr-4 custom-scrollbar content-start" id="toc-list">
+                <!-- Dynamically injected -->
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-grow relative pt-6 pb-24 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col overflow-hidden">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active flex-col justify-center items-center h-full text-center w-full" data-title="Module Introduction" data-section="1. Cloud Architecture">
+            <div class="inline-flex mb-8 px-6 py-2 rounded-full bg-accent-indigo/10 text-accent-indigo font-bold text-xs border border-accent-indigo/20 uppercase tracking-widest shadow-[0_0_30px_rgba(99,102,241,0.15)]">
+                Unit 2 • Masterclass
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8 tracking-tighter text-white leading-[1.1] max-w-5xl">
+                Cloud Computing & <br> 
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan via-accent-indigo to-accent-purple">Virtualization</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-14 leading-relaxed font-light">
+                A comprehensive deep dive into Cloud Architecture Principles, High-Performance Computing, Hypervisors, and the complete Virtualization Stack.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full animate-stagger">
+                <div class="glass-card p-6 rounded-3xl text-left border-t-4 border-t-accent-cyan">
+                    <div class="w-10 h-10 bg-accent-cyan/20 rounded-xl flex items-center justify-center text-accent-cyan mb-4"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                    <h3 class="font-bold text-white text-lg mb-2">Cloud Principles</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Exploring the 6 core principles of architecture design, from deployment to continuous operation.</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl text-left border-t-4 border-t-accent-indigo">
+                    <div class="w-10 h-10 bg-accent-indigo/20 rounded-xl flex items-center justify-center text-accent-indigo mb-4"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                    <h3 class="font-bold text-white text-lg mb-2">Distributed Systems</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Understanding HPC clusters, Utility computing structures, and Enterprise Data Grids.</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl text-left border-t-4 border-t-accent-purple">
+                    <div class="w-10 h-10 bg-accent-purple/20 rounded-xl flex items-center justify-center text-accent-purple mb-4"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg></div>
+                    <h3 class="font-bold text-white text-lg mb-2">Virtualization Core</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Deep architectural analysis of Hypervisors, Xen, KVM, Binary Translation, and 5 Implementation Levels.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Topics Overview -->
+        <div class="slide flex-col h-full" data-title="Topics Covered" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-gray-300 border-gray-500 mb-4">Agenda</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Curriculum Map</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-2xl font-bold text-accent-cyan mb-6 border-b border-white/10 pb-4">Part I: Cloud Computing</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> Insights about Cloud Computing</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> 6 Architectural Principles</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> High-Performance Computing (HPC)</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> Utility & Enterprise Grid Computing</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> Benefits & Limitations of Cloud</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-cyan">▹</span> Hands-on Amazon Services (EC2)</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-2xl font-bold text-accent-purple mb-6 border-b border-white/10 pb-4">Part II: Virtualization</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> Core Concepts & Hypervisors (Type 1 & 2)</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> Xen Architecture & Domains</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> KVM (Kernel-Based VM)</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> Binary Translation & Full Virtualization</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> Para-Virtualization & Compiler Support</li>
+                        <li class="flex items-start gap-3"><span class="text-accent-purple">▹</span> 5 Implementation Levels of Virtualization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Cloud Architecture Overview -->
+        <div class="slide flex-col h-full" data-title="Cloud Architecture Overview" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-blue border-accent-blue/50 mb-4">Foundation</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Cloud Architecture</h2>
+                <p class="text-gray-400 mt-3 text-lg max-w-4xl font-light">The components, databases, software capabilities, and applications used to leverage cloud resources for business solutions.</p>
+            </div>
+            <div class="grid lg:grid-cols-12 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="lg:col-span-5 glass-card p-8 rounded-3xl border border-white/5 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">The Goal of Architecture</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">The entire cloud architecture is aimed at providing users with:</p>
+                    <ul class="space-y-4">
+                        <li class="bg-black/40 p-4 rounded-xl border border-white/5 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-accent-blue/20 text-accent-blue flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                            <span class="text-sm text-gray-200">High bandwidth & uninterrupted access</span>
+                        </li>
+                        <li class="bg-black/40 p-4 rounded-xl border border-white/5 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-accent-blue/20 text-accent-blue flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></div>
+                            <span class="text-sm text-gray-200">On-demand agile network mobility</span>
+                        </li>
+                        <li class="bg-black/40 p-4 rounded-xl border border-white/5 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-accent-blue/20 text-accent-blue flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
+                            <span class="text-sm text-gray-200">Robust network security</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-7 flex flex-col gap-6">
+                    <div class="bg-gradient-to-r from-accent-blue/10 to-transparent border border-accent-blue/20 p-6 rounded-2xl">
+                        <h4 class="font-bold text-accent-blue mb-2">Step-by-Step Design Process</h4>
+                        <div class="flex items-center gap-2 text-sm text-gray-300 font-mono mt-4">
+                            <span class="bg-black/50 px-2 py-1 rounded">1. Collect & Analyze</span> → 
+                            <span class="bg-black/50 px-2 py-1 rounded">2. Design</span> → 
+                            <span class="bg-black/50 px-2 py-1 rounded">3. Evaluate</span> → 
+                            <span class="bg-black/50 px-2 py-1 rounded">4. Implement</span> →
+                            <span class="bg-black/50 px-2 py-1 rounded border border-accent-blue/30 text-white">5. Ops</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex-grow flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-5xl font-black text-white/10 mb-2">6</div>
+                            <h4 class="text-xl font-bold text-white mb-2">Core Principles of Design</h4>
+                            <p class="text-sm text-gray-400">All technical solutions should follow these six target principles to ensure a robust architecture.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Principle 1 - Reasonable Deployment -->
+        <div class="slide flex-col h-full" data-title="Principle 1: Deployment" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 1: Reasonable Deployment</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-accent-cyan/50">
+                    <div class="bg-accent-cyan/10 w-12 h-12 rounded-full flex items-center justify-center text-accent-cyan font-bold mb-4">01</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Public Cloud</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Deployment of business systems available to "any" user.</p>
+                    <ul class="text-xs text-gray-400 space-y-2">
+                        <li>• Cloud hosts (Virtual Machines)</li>
+                        <li>• High-performance physical hosts</li>
+                        <li>• Hosted applications & servers</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-accent-indigo/50">
+                    <div class="bg-accent-indigo/10 w-12 h-12 rounded-full flex items-center justify-center text-accent-indigo font-bold mb-4">02</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Private Cloud</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Operating system extracted and packaged as software deployed in a user's private environment.</p>
+                    <ul class="text-xs text-gray-400 space-y-2">
+                        <li>• Available only to select users</li>
+                        <li>• High security and control</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-accent-purple/50 bg-accent-purple/5">
+                    <div class="bg-accent-purple/20 w-12 h-12 rounded-full flex items-center justify-center text-accent-purple font-bold mb-4">03</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Hybrid Architecture</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Enables unified management and scheduling of resources across diverse environments.</p>
+                    <ul class="text-xs text-gray-400 space-y-2">
+                        <li>• Public + Privatized platforms</li>
+                        <li>• VMware, OpenStack</li>
+                        <li>• Physical servers integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Principle 2 - Business Continuity -->
+        <div class="slide flex-col h-full" data-title="Principle 2: Business Continuity" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 2: Business Continuity</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Ensuring services remain available despite failures or disasters based on three core aspects.</p>
+            </div>
+            <div class="flex flex-col gap-4 w-full max-w-4xl mx-auto h-full overflow-y-auto custom-scrollbar pb-8 animate-stagger">
+                
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-emerald-500 flex items-start gap-6">
+                    <div class="bg-black/50 p-4 rounded-xl shrink-0"><svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">High Availability (HA)</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Avoiding business interruption by using redundancy and other failover designs when the primary resources running the business fail.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-blue-500 flex items-start gap-6">
+                    <div class="bg-black/50 p-4 rounded-xl shrink-0"><svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Continuous Operations</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Ensuring that the resources required for business operations are fault-free, allowing the business to continuously provide uninterrupted services.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-rose-500 flex items-start gap-6">
+                    <div class="bg-black/50 p-4 rounded-xl shrink-0"><svg class="w-8 h-8 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Disaster Recovery (DR)</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">The ability to completely restore applications and data in different, secondary environments when the primary business operating environment is damaged or destroyed.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Slide 6: Principle 3 - Elastic Expansion -->
+        <div class="slide flex-col h-full" data-title="Principle 3: Elastic Expansion" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 3: Elastic Expansion</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Tightly coupled systems are hard to expand and troubleshoot. The first step is to decouple system components.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border border-white/10 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-accent-rose text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">The Problem</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Tightly Coupled Systems</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">When components are deeply intertwined, scaling one piece forces scaling the whole. Software bugs and system failures become highly difficult to isolate and troubleshoot.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-accent-emerald bg-accent-emerald/5 relative">
+                    <div class="absolute top-0 right-0 bg-accent-emerald text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">The Solution</div>
+                    <h3 class="text-2xl font-bold text-white mb-6">Component Decoupling</h3>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-start gap-3"><span class="text-accent-emerald mt-1">✓</span> <span><strong>Statelessness:</strong> Remain stateless at the app tier and store state/dynamic data externally (e.g., in Redis).</span></li>
+                        <li class="flex items-start gap-3"><span class="text-accent-emerald mt-1">✓</span> <span><strong>Load Balancing:</strong> Insert load balancers so horizontal scaling doesn't affect the overall business logic.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-accent-emerald mt-1">✓</span> <span><strong>Message Queues & API Gateways:</strong> Producers and consumers can be expanded completely independently without affecting each other.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-accent-emerald mt-1">✓</span> <span><strong>Global LB:</strong> Achieve global load balancing to expand back-end business in hybrid/multi-cloud environments.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Principle 4 - Performance Efficiency -->
+        <div class="slide flex-col h-full" data-title="Principle 4: Performance" data-section="1. Cloud Architecture">
+             <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 4: Performance Efficiency</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center border border-white/5">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 flex items-center justify-center mb-6 text-blue-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">1. Computing</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Improve single-machine performance using high-configuration cloud hosts. Expand overall service performance through horizontal clustering.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center border border-white/5">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center mb-6 text-emerald-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">2. Storage & Caching</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Cache hot data and store temporary state data using Redis. Perform in-memory calculations to drastically reduce I/O wait and improve speed.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center border border-white/5">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center mb-6 text-amber-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">3. Network Opt.</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Select optimal data centers for global deployments. Route traffic intelligently using global infrastructure networks and CDNs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Principle 5 - Security Compliance -->
+        <div class="slide flex-col h-full" data-title="Principle 5: Security" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 5: Security Compliance</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Meeting internal security protection needs while adhering to external supervision and regulatory requirements.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="bg-black/40 border border-white/5 p-5 rounded-2xl">
+                    <h4 class="text-accent-indigo font-bold mb-2 text-sm uppercase tracking-wider">Identity & Access Management</h4>
+                    <p class="text-sm text-gray-300">Set up master and sub-accounts. Manage public/private keys separately. Assign minimum required permissions (Principle of Least Privilege) to specific roles.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-5 rounded-2xl">
+                    <h4 class="text-accent-indigo font-bold mb-2 text-sm uppercase tracking-wider">Network Isolation</h4>
+                    <p class="text-sm text-gray-300">Control access via ACLs and Security Groups (port restrictions). Control cross-subnet communication through strict routing rules and VPC boundaries.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-5 rounded-2xl">
+                    <h4 class="text-accent-indigo font-bold mb-2 text-sm uppercase tracking-wider">Data & Intranet Protection</h4>
+                    <p class="text-sm text-gray-300">Databases and internal cloud hosts must reside in isolated Intranet VPCs. Do not connect them to the extranet (public internet) directly.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-5 rounded-2xl">
+                    <h4 class="text-accent-indigo font-bold mb-2 text-sm uppercase tracking-wider">Threat Mitigation & Auditing</h4>
+                    <p class="text-sm text-gray-300">Implement WAFs to prevent DDoS, SQL injection, XSS. Maintain continuous security auditing, keep access/operation logs, and archive them securely.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Principle 6 - Continuous Operation -->
+        <div class="slide flex-col h-full" data-title="Principle 6: Operations" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-cyan border-accent-cyan/50 mb-4 bg-accent-cyan/10">Architecture Design</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Principle 6: Continuous Operation</h2>
+            </div>
+            
+            <div class="w-full max-w-5xl mx-auto glass-card p-8 rounded-3xl border border-white/10 h-full overflow-y-auto custom-scrollbar pb-8">
+                <div class="relative border-l-2 border-white/10 ml-4 space-y-8 pb-4">
+                    
+                    <div class="relative pl-8">
+                        <div class="absolute w-4 h-4 rounded-full bg-accent-blue left-[-9px] top-1 shadow-[0_0_10px_#3b82f6]"></div>
+                        <h3 class="text-lg font-bold text-white mb-2">1. Monitoring & Alarming</h3>
+                        <p class="text-sm text-gray-400">Continuously monitor cloud resources, services, events, and user applications. Establish strict alarm thresholds.</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute w-4 h-4 rounded-full bg-accent-purple left-[-9px] top-1 shadow-[0_0_10px_#a855f7]"></div>
+                        <h3 class="text-lg font-bold text-white mb-2">2. Multi-Channel Notification</h3>
+                        <p class="text-sm text-gray-400">When alarms trigger, automatically notify personnel via phone, SMS, email, WeChat, or Slack channels immediately.</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute w-4 h-4 rounded-full bg-accent-rose left-[-9px] top-1 shadow-[0_0_10px_#f43f5e]"></div>
+                        <h3 class="text-lg font-bold text-white mb-2">3. Automated Response (Callbacks)</h3>
+                        <p class="text-sm text-gray-400">Route alarms to callback functions (e.g., AWS Lambda) to execute contingency plans and realize automated fault handling without manual intervention.</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute w-4 h-4 rounded-full bg-accent-emerald left-[-9px] top-1 shadow-[0_0_10px_#10b981]"></div>
+                        <h3 class="text-lg font-bold text-white mb-2">4. Auto-Scaling & Cost Control</h3>
+                        <p class="text-sm text-gray-400">Automatically expand or shrink cloud hosts based on CPU/Memory metrics. Detect consumption changes to optimize costs. Set account balance alarms to prevent budget overruns.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Benefits & Limitations -->
+        <div class="slide flex-col h-full" data-title="Cloud Benefits & Limits" data-section="1. Cloud Architecture">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Cloud Environments</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-emerald-500 bg-emerald-500/5">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Benefits
+                    </h3>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Accessibility anywhere, with any device</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Ability to get rid of most or all hardware and software management</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Centralized data security and backups</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Higher performance and multi-region availability</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Quick application deployment (CI/CD)</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Instant business insights via managed analytics</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Business continuity and automated disaster recovery</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Price-performance and capital cost savings (Pay-as-you-go)</span></li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> <span>Cloud computing is generally "greener" (efficient shared data centers)</span></li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-rose-500 bg-rose-500/5">
+                    <h3 class="text-2xl font-bold text-rose-400 mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        Limitations & Issues
+                    </h3>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="bg-black/30 p-3 rounded-lg border border-rose-500/20">
+                            <strong class="text-white block mb-1">Sensitive Data Control</strong>
+                            Handing over extremely sensitive IP or PII data to a third-party vendor involves loss of absolute physical control.
+                        </li>
+                        <li class="bg-black/30 p-3 rounded-lg border border-rose-500/20">
+                            <strong class="text-white block mb-1">Application Development Lock-in</strong>
+                            Building heavily on provider-specific APIs (like AWS Lambda or DynamoDB) makes migrating to another cloud difficult.
+                        </li>
+                        <li class="bg-black/30 p-3 rounded-lg border border-rose-500/20">
+                            <strong class="text-white block mb-1">Third-Party Security Level</strong>
+                            You are reliant on the provider's security posture. If they have a hypervisor breach, your VMs could be exposed.
+                        </li>
+                        <li class="bg-black/30 p-3 rounded-lg border border-rose-500/20">
+                            <strong class="text-white block mb-1">Issues of Regularity</strong>
+                            Government policies and data sovereignty laws (e.g., GDPR) dictate where data can physically reside, complicating global cloud deployments.
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Slide 11: High-Performance Computing (HPC) -->
+        <div class="slide flex-col h-full" data-title="High-Performance Computing" data-section="2. Distributed Systems">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-indigo border-accent-indigo/50 mb-4 bg-accent-indigo/10">Scale & Speed</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">High-Performance Computing (HPC)</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-white/5 flex flex-col justify-center">
+                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                        HPC is the ability to process data and perform complex calculations at incredibly high speeds.
+                    </p>
+                    <div class="bg-black/50 p-6 rounded-2xl border border-white/10 mb-6">
+                        <h4 class="text-accent-cyan font-bold mb-2 flex justify-between"><span>Standard Desktop (3 GHz)</span> <span>~3 Billion / sec</span></h4>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden mb-4"><div class="bg-accent-cyan w-[2%] h-full"></div></div>
+                        
+                        <h4 class="text-accent-purple font-bold mb-2 flex justify-between"><span>HPC Supercomputer</span> <span class="text-2xl">Quadrillions / sec</span></h4>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden"><div class="bg-accent-purple w-[100%] h-full shadow-[0_0_10px_#a855f7]"></div></div>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        The best-known HPC solution is the <strong>supercomputer</strong>. It contains thousands of compute nodes working together to complete tasks via <strong>parallel processing</strong>.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 flex flex-col gap-4 animate-stagger">
+                    <h3 class="text-xl font-bold text-white mb-2">3 Main HPC Components</h3>
+                    
+                    <div class="bg-gradient-to-r from-blue-900/40 to-transparent p-4 rounded-xl border-l-4 border-blue-500">
+                        <strong class="text-white block">1. Compute Cluster</strong>
+                        <span class="text-xs text-gray-400">Hundreds or thousands of networked compute servers (nodes) running software simultaneously.</span>
+                    </div>
+                    
+                    <div class="flex justify-center -my-2 text-gray-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg></div>
+                    
+                    <div class="bg-gradient-to-r from-purple-900/40 to-transparent p-4 rounded-xl border-l-4 border-purple-500">
+                        <strong class="text-white block">2. High-Speed Network</strong>
+                        <span class="text-xs text-gray-400">Must transport massive amounts of data instantly between nodes and storage without bottlenecking.</span>
+                    </div>
+
+                    <div class="flex justify-center -my-2 text-gray-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg></div>
+
+                    <div class="bg-gradient-to-r from-teal-900/40 to-transparent p-4 rounded-xl border-l-4 border-teal-500">
+                        <strong class="text-white block">3. Data Storage</strong>
+                        <span class="text-xs text-gray-400">Must feed and ingest data to/from compute servers precisely as fast as it is processed.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: HPC Use Cases -->
+        <div class="slide flex-col h-full" data-title="HPC Use Cases" data-section="2. Distributed Systems">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-indigo border-accent-indigo/50 mb-4 bg-accent-indigo/10">Scale & Speed</span>
+                <h2 class="text-4xl font-extrabold text-white">HPC Industry Applications</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-accent-cyan mb-2">Research Labs</h3>
+                    <p class="text-sm text-gray-400">Find sources of renewable energy, understand universe evolution, predict/track storms, and create new materials.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-accent-rose mb-2">Media & Entertainment</h3>
+                    <p class="text-sm text-gray-400">Edit feature films, render complex special effects, and stream live events globally.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-amber-400 mb-2">Oil and Gas</h3>
+                    <p class="text-sm text-gray-400">Accurately identify new drilling locations and boost production efficiency from existing wells.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-accent-purple mb-2">AI and Machine Learning</h3>
+                    <p class="text-sm text-gray-400">Detect credit card fraud, teach self-driving vehicles, and improve computer-vision cancer screening.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-emerald-400 mb-2">Financial Services</h3>
+                    <p class="text-sm text-gray-400">Track real-time high-frequency stock trends and execute automated algorithmic trading.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="text-lg font-bold text-blue-400 mb-2">Manufacturing & Healthcare</h3>
+                    <p class="text-sm text-gray-400">Simulate test scenarios, manage real-time inventory, and develop cures via genome sequencing.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Utility Computing -->
+        <div class="slide flex-col h-full" data-title="Utility Computing" data-section="2. Distributed Systems">
+             <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-blue border-accent-blue/50 mb-4 bg-accent-blue/10">Service Models</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Utility Computing</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent-blue">
+                    <h3 class="text-2xl font-bold text-white mb-4">The Pay-Per-Use Paradigm</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm mb-4">
+                        Utility computing is the most trending IT service model. It provides on-demand computing resources (computation, storage, and APIs) and infrastructure based entirely on a <strong>pay-per-use method</strong>, much like water or electricity.
+                    </p>
+                    <div class="bg-black/50 p-4 rounded-xl border border-white/5 mt-6">
+                        <strong class="text-white block mb-2">Key Advantages:</strong>
+                        <ul class="text-sm text-gray-400 space-y-2">
+                            <li>• Minimizes upfront associated costs (CapEx).</li>
+                            <li>• Maximizes efficient use of resources.</li>
+                            <li>• Provides greater flexibility and easier management.</li>
+                            <li>• Championed by large orgs like Google and Amazon (AWS).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-white/5 flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-6">Utility Computing Offerings</h3>
+                    <ul class="space-y-3 text-sm text-gray-300 flex-grow">
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Access to file, application, and web servers.</li>
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Full stack: IaaS, PaaS, SaaS.</li>
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Virtually unlimited processing power and storage.</li>
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Cloud storage and general cloud computing.</li>
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Utility services: Power, HVAC, and communications in datacenters.</li>
+                        <li class="flex gap-3"><span class="text-accent-blue">▹</span> Specialized expertise (ransomware response, dev support).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Grid Computing -->
+        <div class="slide flex-col h-full" data-title="Grid Computing" data-section="2. Distributed Systems">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-blue border-accent-blue/50 mb-4 bg-accent-blue/10">Distributed Power</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Grid Computing</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Combining computing resources from multiple, geographically distinct locations to achieve a common goal.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="lg:col-span-5 flex flex-col gap-4 animate-stagger">
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-accent-purple">
+                        <h4 class="font-bold text-white mb-1">1. Control Node</h4>
+                        <p class="text-xs text-gray-400">A group of servers running specialized software that administers the entire network, acts as the manager, coordinates tasks, and assigns subtasks.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-accent-cyan">
+                        <h4 class="font-bold text-white mb-1">2. Provider</h4>
+                        <p class="text-xs text-gray-400">A computer (or server) that contributes its spare processing resources into the network resource pool.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-accent-emerald">
+                        <h4 class="font-bold text-white mb-1">3. User</h4>
+                        <p class="text-xs text-gray-400">The computer/application that actually requests and uses the aggregated resources on the network.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-white/5 flex flex-col justify-center">
+                    <h3 class="text-xl font-bold text-white mb-4">How it Works</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">
+                        The grid is connected by parallel nodes forming a computer cluster (of varying sizes and OSs). The manager software breaks a massive job into <strong>subtasks</strong> and distributes them.
+                    </p>
+                    <div class="bg-black/50 p-6 rounded-2xl border border-white/10 relative overflow-hidden">
+                        <div class="flex justify-between items-center text-xs font-mono text-gray-400 mb-4">
+                            <span>Main Application</span>
+                            <span>→</span>
+                            <span>Manager</span>
+                            <span>→</span>
+                            <span>Data Grid Nodes</span>
+                        </div>
+                        <div class="flex justify-around items-end h-20 border-b border-white/10 pb-2">
+                            <div class="w-12 bg-accent-purple h-full rounded-t-sm"></div>
+                            <div class="w-12 bg-accent-cyan h-3/4 rounded-t-sm"></div>
+                            <div class="w-12 bg-accent-emerald h-1/2 rounded-t-sm"></div>
+                            <div class="w-12 bg-accent-rose h-5/6 rounded-t-sm"></div>
+                        </div>
+                        <p class="text-[11px] text-gray-500 text-center mt-3">Nodes work simultaneously. Outputs are gathered and aggregated to complete the larger-scale task. Used in ATMs, back-end infrastructures, and research.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Introduction to Virtualization -->
+        <div class="slide flex-col h-full" data-title="Intro to Virtualization" data-section="3. Virtualization Core">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-purple border-accent-purple/50 mb-4 bg-accent-purple/10">The Core Engine</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">What is Virtualization?</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border border-white/5 flex flex-col justify-center">
+                    <p class="text-lg text-gray-200 leading-relaxed mb-6 font-medium italic">
+                        "The creation of a virtual (rather than actual) version of something, such as a server, a desktop, a storage device, an operating system, or network resources."
+                    </p>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        It allows sharing a single physical instance of a resource among multiple customers and organizations. It logically separates the environment from the underlying hardware by assigning a logical name and a pointer to the physical resource.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-4 animate-stagger">
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-accent-purple">
+                        <h4 class="font-bold text-white mb-2">Virtual Machine (VM)</h4>
+                        <p class="text-xs text-gray-400">An isolated environment logically separated from underlying hardware. Operates like a typical physical server with its own CPU, RAM, OS, and apps.</p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-accent-blue">
+                        <h4 class="font-bold text-white mb-2">Host vs. Guest</h4>
+                        <p class="text-xs text-gray-400">The physical machine running the virtualization software is the <strong>Host</strong>. The virtual machine running inside it is the <strong>Guest</strong>.</p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-accent-emerald">
+                        <h4 class="font-bold text-white mb-2">Virtualization vs. Cloud</h4>
+                        <p class="text-xs text-gray-400"><strong>Virtualization</strong> is the technology that splits hardware. <strong>Cloud Computing</strong> is the business model that delivers those virtualized resources over the internet on-demand.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Advantages of Virtual Machines -->
+        <div class="slide flex-col h-full" data-title="VM Advantages" data-section="3. Virtualization Core">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">Why Use Virtual Machines?</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">🖥️</div>
+                    <p class="text-sm text-gray-300">Run operating systems where the physical hardware is unavailable.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">⚡</div>
+                    <p class="text-sm text-gray-300">Easier to create new machines, backup, and restore rapidly.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">🧪</div>
+                    <p class="text-sm text-gray-300">Safe software testing using "clean" snapshot installs of OSs.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">🪄</div>
+                    <p class="text-sm text-gray-300">Emulate more machines than are physically present.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">⏱️</div>
+                    <p class="text-sm text-gray-300">Timeshare lightly loaded systems efficiently on one host.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">🐛</div>
+                    <p class="text-sm text-gray-300">Debug easily (suspend/resume state of the problem machine).</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">🚚</div>
+                    <p class="text-sm text-gray-300">Live migration of VMs between physical servers without shutdown.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-2xl text-center flex flex-col items-center">
+                    <div class="text-3xl mb-4">💾</div>
+                    <p class="text-sm text-gray-300">Run legacy systems safely inside a modern infrastructure.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: The Hypervisor -->
+        <div class="slide flex-col h-full" data-title="The Hypervisor" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-purple border-accent-purple/50 mb-4 bg-accent-purple/10">VMM</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">The Hypervisor</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">The Virtual Machine Monitor (VMM) that acts as the intermediary.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-accent-purple bg-accent-purple/5">
+                    <h3 class="text-2xl font-bold text-white mb-4">Type 1: Bare-Metal</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Executes directly on the bare system hardware. It acts as the Host OS itself. Highly efficient because it interacts directly with physical resources.</p>
+                    
+                    <div class="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-center text-sm mb-6">
+                        <div class="flex justify-around mb-2">
+                            <div class="bg-blue-900/50 px-3 py-1 rounded text-white text-xs">Guest OS 1</div>
+                            <div class="bg-blue-900/50 px-3 py-1 rounded text-white text-xs">Guest OS 2</div>
+                        </div>
+                        <div class="bg-accent-purple/40 py-2 rounded text-white font-bold mb-2">Type 1 Hypervisor</div>
+                        <div class="bg-gray-800 py-2 rounded text-gray-400">System Hardware</div>
+                    </div>
+                    
+                    <p class="text-xs text-gray-400"><strong>Examples:</strong> VMware ESXi, Microsoft Hyper-V, Oracle VM, Xen.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-accent-blue bg-accent-blue/5">
+                    <h3 class="text-2xl font-bold text-white mb-4">Type 2: Hosted</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">Runs as a standard application on top of an existing Host Operating System. Emulates devices for the guest VMs.</p>
+                    
+                    <div class="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-center text-sm mb-6">
+                        <div class="flex justify-around mb-2">
+                            <div class="bg-blue-900/50 px-3 py-1 rounded text-white text-xs">Guest OS 1</div>
+                            <div class="bg-blue-900/50 px-3 py-1 rounded text-white text-xs">Guest OS 2</div>
+                        </div>
+                        <div class="bg-accent-blue/40 py-2 rounded text-white font-bold mb-2">Type 2 Hypervisor</div>
+                        <div class="bg-gray-700 py-2 rounded text-white mb-2">Host OS (Windows/Linux)</div>
+                        <div class="bg-gray-800 py-2 rounded text-gray-400">System Hardware</div>
+                    </div>
+                    
+                    <p class="text-xs text-gray-400"><strong>Examples:</strong> VMware Workstation, VirtualBox, Windows Virtual PC.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Types of Virtualization -->
+        <div class="slide flex-col h-full" data-title="Types of Virtualization" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">8 Types of Virtualization</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-purple"><h4 class="font-bold text-white text-sm">1. Hardware</h4><p class="text-[10px] text-gray-400 mt-1">VMM installed on hardware (Servers). Full, Emulation, or Para-virtualization.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-blue"><h4 class="font-bold text-white text-sm">2. Operating System</h4><p class="text-[10px] text-gray-400 mt-1">Shares host OS kernel to run isolated containers. Quick and easy to migrate.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-cyan"><h4 class="font-bold text-white text-sm">3. Server</h4><p class="text-[10px] text-gray-400 mt-1">Partitions physical server into multiple virtual servers. Prevents idle capacities.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-emerald"><h4 class="font-bold text-white text-sm">4. Storage</h4><p class="text-[10px] text-gray-400 mt-1">Pools NAS/SAN devices into a single virtual unit. Streamlines backup/recovery.</p></div>
+                
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-rose"><h4 class="font-bold text-white text-sm">5. Desktop</h4><p class="text-[10px] text-gray-400 mt-1">VDI separates desktop environment from physical device. Access from anywhere.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-accent-amber"><h4 class="font-bold text-white text-sm">6. Network</h4><p class="text-[10px] text-gray-400 mt-1">SDN and NFV abstract routing and firewall appliances from physical hardware.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-gray-300"><h4 class="font-bold text-white text-sm">7. Data</h4><p class="text-[10px] text-gray-400 mt-1">Software layer returning data in suitable formats regardless of where it is stored.</p></div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-pink-400"><h4 class="font-bold text-white text-sm">8. Application</h4><p class="text-[10px] text-gray-400 mt-1">App streaming or local isolation allowing Windows apps on Linux, etc.</p></div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Hardware Virtualization Techniques -->
+        <div class="slide flex-col h-full" data-title="Hardware Virtualization" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-purple border-accent-purple/50 mb-4 bg-accent-purple/10">Deep Dive</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Hardware Virtualization</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Mainly done for server platforms. Divided into three sub-types.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start animate-stagger">
+                <div class="glass-card p-6 rounded-3xl border border-white/10 bg-black/40">
+                    <h3 class="text-xl font-bold text-accent-cyan mb-3">1. Full Virtualization</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Underlying hardware is completely simulated. Guest OS requires <strong>zero modifications</strong>. Relies heavily on Binary Translation and hardware assists (Intel VT-x, AMD-V) to trap privileged instructions.</p>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Complete Isolation</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-white/10 bg-black/40">
+                    <h3 class="text-xl font-bold text-accent-emerald mb-3">2. Para-Virtualization</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Hardware is not fully simulated. The <strong>Guest OS is modified</strong> to replace non-virtualizable OS instructions with <em>hypercalls</em> to the hypervisor at compile time. Higher performance.</p>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Modified Guest OS</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-white/10 bg-black/40">
+                    <h3 class="text-xl font-bold text-accent-amber mb-3">3. Emulation</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">The virtual machine software simulates the entire hardware architecture in software, making it completely independent of the host CPU. Slowest, but allows running entirely different architectures.</p>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Hardware Independence</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Full Virt & Binary Translation -->
+        <div class="slide flex-col h-full" data-title="Full Virt & Binary Translation" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Full Virtualization & Rings</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-xl font-bold text-white mb-4">x86 Privilege Rings</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Standard x86 architecture has Rings 0, 1, 2, 3. The lowest number has highest privilege (hardware access).</p>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-center justify-between bg-black/40 p-2 rounded"><span class="text-accent-rose font-bold">Ring 0</span> <span>Hypervisor / VMM</span></li>
+                        <li class="flex items-center justify-between bg-black/40 p-2 rounded"><span class="text-accent-amber font-bold">Ring 1</span> <span>Guest OS (Unmodified)</span></li>
+                        <li class="flex items-center justify-between bg-black/40 p-2 rounded"><span class="text-gray-500">Ring 2</span> <span>(Rarely used)</span></li>
+                        <li class="flex items-center justify-between bg-black/40 p-2 rounded"><span class="text-accent-cyan font-bold">Ring 3</span> <span>User Applications</span></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-accent-blue bg-accent-blue/5">
+                        <h4 class="font-bold text-white mb-2">Binary Translation</h4>
+                        <p class="text-xs text-gray-300 leading-relaxed">Because the Guest OS is at Ring 1, it cannot execute privileged hardware instructions directly. The VMM scans the instruction stream. When a critical instruction is found, it is trapped and <strong>Binary Translated</strong> on the fly into safe code that emulates the behavior.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-emerald-900/20 border border-emerald-500/20 p-4 rounded-xl">
+                            <strong class="text-emerald-400 text-xs block mb-1">Advantage</strong>
+                            <p class="text-[10px] text-gray-400">Best isolation and security. Unmodified OS can run. No hardware assist strictly required.</p>
+                        </div>
+                        <div class="bg-rose-900/20 border border-rose-500/20 p-4 rounded-xl">
+                            <strong class="text-rose-400 text-xs block mb-1">Disadvantage</strong>
+                            <p class="text-[10px] text-gray-400">Binary translation is time-consuming. Memory overhead for code cache. 80-95% native performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Para-Virtualization -->
+        <div class="slide flex-col h-full" data-title="Para-Virtualization" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Para-Virtualization</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent-emerald flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">Compiler Support & Hypercalls</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Instead of translating instructions on the fly at runtime, Para-virtualization handles them at <strong>compile time</strong>.</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">The Guest OS kernel is intentionally modified by an intelligent compiler. Non-virtualizable, privileged instructions are explicitly replaced with <strong>Hypercalls</strong> (APIs) to communicate directly with the hypervisor.</p>
+                    <div class="bg-black/60 p-4 rounded-xl border border-white/10 font-mono text-xs text-accent-emerald">
+                        Guest OS → executes Hypercall → handled by VMM Service Routine
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <strong class="text-white block mb-2">Performance Win</strong>
+                        <p class="text-xs text-gray-400">Because there is no costly binary translation trap-and-emulate overhead, para-virtualization generally offers near-native performance.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5 bg-rose-500/5">
+                        <strong class="text-rose-400 block mb-2">The Trade-off</strong>
+                        <ul class="text-xs text-gray-300 space-y-2">
+                            <li>• Requires access to modify the Guest OS source code (easy for Linux, hard for Windows).</li>
+                            <li>• High maintenance cost for patched OS versions.</li>
+                            <li>• Compatibility issues with unmodified systems.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Host-Based Virtualization -->
+        <div class="slide flex-col h-full" data-title="Host-Based Virtualization" data-section="4. Hypervisors & Architecture">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">Host-Based Virtualization</h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto w-full glass-card p-8 rounded-3xl border border-white/5 h-full overflow-y-auto custom-scrollbar pb-8">
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    A virtualization layer is installed <strong>on top of</strong> a complete Host OS (e.g., Windows running VirtualBox). The Host OS remains responsible for managing hardware drivers.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-accent-cyan mb-3">Pros</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Easy to deploy without modifying the host OS.</li>
+                            <li>• Relies on the host OS for hardware device drivers (very flexible).</li>
+                            <li>• Great for desktop testing.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-accent-rose mb-3">Cons</h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• <strong>4 Layers of Mapping:</strong> App → Guest OS → Virtualization Layer → Host OS → Hardware.</li>
+                            <li>• Significant performance downgrade due to overhead.</li>
+                            <li>• Too slow for heavy, practical enterprise server deployments.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Xen Architecture -->
+        <div class="slide flex-col h-full" data-title="Xen Hypervisor" data-section="5. Xen & KVM">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-amber border-accent-amber/50 mb-4 bg-accent-amber/10">Architecture</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Xen Hypervisor</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">An open-source micro-kernel hypervisor that uses Domain hierarchy.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-accent-amber flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">Dom0 (Domain 0)</h3>
+                    <p class="text-xs text-accent-amber font-mono mb-4">Privileged Domain / Host</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">The first domain started by Xen. It has special privileges to access hardware directly and start new domains. Runs device drivers and the <strong>BackendDriver</strong> which multiplexes hardware requests from other domains.</p>
+                    <p class="text-xs text-gray-400 italic">Usually runs a heavily patched Linux kernel.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-gray-500 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">DomU (Domain U)</h3>
+                    <p class="text-xs text-gray-500 font-mono mb-4">Unprivileged Domain / Guest VM</p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">The standard virtual machines. They have NO direct hardware access. They run a <strong>FrontendDriver</strong> that passes requests to Dom0 via the hypervisor to access networks and disks.</p>
+                    <p class="text-xs text-gray-400 italic">Started by XenD in Dom0 using the 'xm' tool.</p>
+                </div>
+                
+                <div class="lg:col-span-2 bg-black/40 border border-white/5 p-4 rounded-xl text-center text-sm text-gray-400">
+                    <strong>The Hypervisor:</strong> Sits below Dom0 and DomU, checking page tables, allocating resources, scheduling domains, and booting the machine to start Dom0.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: KVM Architecture -->
+        <div class="slide flex-col h-full" data-title="KVM Hypervisor" data-section="5. Xen & KVM">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-rose border-accent-rose/50 mb-4 bg-accent-rose/10">Architecture</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">KVM (Kernel-Based VM)</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-xl font-bold text-white mb-4">Linux Integration</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">KVM is a full native virtualization solution built directly into the standard Linux kernel (since 2.6.20). It interfaces via a loadable kernel module.</p>
+                    <p class="text-sm text-gray-300 leading-relaxed">It utilizes hardware virtualization extensions (Intel VT, AMD-V) for full virtualization, but also supports para-virtualized network drivers for performance.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent-rose bg-accent-rose/5">
+                    <h3 class="text-xl font-bold text-white mb-4">VMs as Processes</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">In KVM, a virtual machine is implemented simply as a <strong>regular Linux process</strong>. Each virtual CPU is just a standard thread.</p>
+                    <p class="text-sm text-gray-300 leading-relaxed"><strong>Advantage:</strong> Memory management and scheduling are handled entirely by the robust, standard Linux scheduler. This makes KVM simpler than standalone hypervisors.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Implementation Levels Intro -->
+        <div class="slide flex-col h-full" data-title="Implementation Levels" data-section="6. Virt Levels">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">5 Implementation Levels of Virtualization</h2>
+                <p class="text-gray-400 mt-2 text-lg">Where is the virtualization layer inserted in the stack?</p>
+            </div>
+            
+            <div class="flex flex-col gap-3 h-full overflow-y-auto custom-scrollbar pb-8 animate-stagger max-w-4xl mx-auto w-full">
+                <div class="bg-black/60 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span class="text-accent-purple font-bold">5. Application Level</span>
+                    <span class="text-xs text-gray-500 font-mono">Highest Level</span>
+                </div>
+                <div class="bg-black/60 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span class="text-accent-indigo font-bold">4. Library Level</span>
+                    <span class="text-xs text-gray-500 font-mono">User APIs</span>
+                </div>
+                <div class="bg-black/60 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span class="text-accent-cyan font-bold">3. Operating System Level</span>
+                    <span class="text-xs text-gray-500 font-mono">Kernel / Containers</span>
+                </div>
+                <div class="bg-black/60 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span class="text-accent-emerald font-bold">2. Hardware Abstraction Level (HAL)</span>
+                    <span class="text-xs text-gray-500 font-mono">Hypervisor</span>
+                </div>
+                <div class="bg-black/60 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                    <span class="text-accent-rose font-bold">1. Instruction Set Arch Level (ISA)</span>
+                    <span class="text-xs text-gray-500 font-mono">Deepest / Emulation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Level 1 & 2 -->
+        <div class="slide flex-col h-full" data-title="ISA & HAL Levels" data-section="6. Virt Levels">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">Deep Virtualization</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-accent-rose">
+                    <h3 class="text-xl font-bold text-white mb-2">1. Instruction Set Architecture (ISA) Level</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Works via ISA emulation. Translates binary code written for one hardware configuration so it can run on another (e.g., legacy code on an x86/x64 machine).</p>
+                    <p class="text-sm text-gray-400">Uses a basic interpreter to read source code and convert it to hardware-readable format. Makes the VM <strong>hardware agnostic</strong>.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-accent-emerald">
+                    <h3 class="text-xl font-bold text-white mb-2">2. Hardware Abstraction Level (HAL)</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">Virtualization performs right above the hardware level using a Hypervisor. Manages CPU, Memory, and I/O devices.</p>
+                    <p class="text-sm text-gray-400">Allows multiple isolated VMs to run simultaneously on the same hardware. Standard for cloud-based infrastructure (e.g., VMware, Xen).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 27: Level 3, 4, 5 -->
+        <div class="slide flex-col h-full" data-title="OS, Lib & App Levels" data-section="6. Virt Levels">
+            <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">Higher Virtualization</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-accent-cyan">
+                    <h3 class="text-lg font-bold text-white mb-2">3. OS Level</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Creates an abstract layer between the OS and application. Shares the host OS kernel to create isolated containers (e.g., Docker). Ideal when users don't need a custom OS, preventing resource conflict efficiently.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-accent-indigo">
+                    <h3 class="text-lg font-bold text-white mb-2">4. Library Level</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Because full OS virtualization can be cumbersome, this level intercepts user-level API calls from libraries. Uses API hooking to control communication from the app to the system (e.g., WINE on Linux).</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-accent-purple">
+                    <h3 class="text-lg font-bold text-white mb-2">5. Application Level</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Virtualizes only a single application environment rather than the whole platform. Typically implemented using a Virtual Machine executing high-level byte-code (e.g., JVM for Java, .NET CLR).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: AWS EC2 -->
+        <div class="slide flex-col h-full" data-title="AWS EC2 Concept" data-section="7. Cloud Providers">
+            <div class="mb-8 shrink-0">
+                <span class="concept-badge text-accent-amber border-accent-amber/50 mb-4 bg-accent-amber/10">Hands-on Service</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Amazon EC2</h2>
+                <p class="text-gray-400 mt-3 text-lg font-light">Elastic Compute Cloud: The virtual server in the cloud.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 h-full overflow-y-auto custom-scrollbar pb-8 content-start">
+                <div class="glass-card p-8 rounded-3xl border border-white/5 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">The EC2 Instance</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-6">An EC2 instance is simply a virtual machine running in AWS's data centers. You rent computing power by the hour/second.</p>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li>• Choose your OS (Linux, Windows, macOS).</li>
+                        <li>• Choose CPU, RAM, and Storage sizing.</li>
+                        <li>• Scale horizontally automatically.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent-amber bg-accent-amber/5 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">The Nitro System</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">AWS moved away from traditional heavy hypervisors to their custom <strong>Nitro System</strong>.</p>
+                    <p class="text-sm text-gray-300 leading-relaxed">It offloads hypervisor functions (network, storage, security) to dedicated hardware cards. This leaves practically 100% of the physical server's CPU and RAM available for the guest instances, blurring the line between bare-metal performance and virtualization.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 29: Final Summary -->
+        <div class="slide flex-col h-full" data-title="Master Summary" data-section="8. Wrap Up">
+             <div class="mb-8 shrink-0">
+                <h2 class="text-4xl font-extrabold text-white">Module Synthesis</h2>
+            </div>
+            
+            <div class="glass-card p-8 rounded-3xl border border-white/10 h-full flex items-center justify-center">
+                <div class="text-center max-w-2xl">
+                    <svg class="w-16 h-16 mx-auto text-accent-cyan mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <h3 class="text-2xl font-bold text-white mb-4">Architecture & Virtualization Complete</h3>
+                    <p class="text-gray-400 mb-6">We've traversed the rigid principles of cloud deployment to the deeply technical mechanisms of hypervisors, binary translation, and execution rings. You now have a complete structural map of modern distributed computing.</p>
+                    <div class="text-accent-indigo text-sm font-bold tracking-widest uppercase">End of Unit 2</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="absolute bottom-0 w-full z-50 glass-panel border-t border-white/10 pb-4 pt-3">
+        <div class="w-full absolute top-0 left-0 bg-white/5 h-1">
+            <div id="progress-bar" class="bg-gradient-to-r from-accent-cyan via-accent-indigo to-accent-purple h-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(99,102,241,0.5)]" style="width: 0%"></div>
+        </div>
+
+        <div class="px-4 sm:px-6 md:px-12 flex justify-between items-center max-w-[1600px] mx-auto w-full mt-1">
+            
+            <div class="flex items-center gap-4 w-1/3">
+                <button onclick="toggleTOC()" class="px-4 py-2 text-sm font-bold bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all border border-white/10 hover:border-accent-cyan/30 flex items-center gap-2 shadow-sm focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                    <span class="hidden sm:inline">Index</span>
+                </button>
+                <div class="hidden lg:flex flex-col">
+                    <span id="slide-section-indicator" class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Section</span>
+                    <span id="slide-title-indicator" class="text-sm font-semibold text-gray-300 truncate max-w-[200px]">Loading...</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 md:gap-6 w-1/3">
+                <button onclick="prevSlide()" class="p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-all border border-white/10 hover:border-white/30 group focus:outline-none focus:ring-2 focus:ring-accent-indigo/50">
+                    <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button onclick="nextSlide()" class="p-3 rounded-full bg-accent-indigo hover:bg-indigo-500 text-white transition-all border border-transparent shadow-[0_0_20px_rgba(99,102,241,0.3)] group focus:outline-none focus:ring-2 focus:ring-white/50">
+                    <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+
+            <div class="flex items-center justify-end gap-4 w-1/3">
+                <span id="slide-counter" class="text-sm font-mono font-bold text-gray-400 bg-black/40 border border-white/10 px-3 py-1.5 rounded-lg">1 / X</span>
+                <button onclick="toggleFullScreen()" title="Fullscreen" class="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all border border-white/10 hidden sm:block focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slide-counter');
+        const progressBar = document.getElementById('progress-bar');
+        const titleIndicator = document.getElementById('slide-title-indicator');
+        const sectionIndicator = document.getElementById('slide-section-indicator');
+        const tocModal = document.getElementById('toc-modal');
+        const tocList = document.getElementById('toc-list');
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                if(index === currentSlideIndex) {
+                    slide.classList.add('active');
+                    titleIndicator.innerText = slide.getAttribute('data-title') || 'Slide';
+                    sectionIndicator.innerText = slide.getAttribute('data-section') || 'Section';
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            
+            counter.innerText = `${currentSlideIndex + 1} / ${slides.length}`;
+            progressBar.style.width = `${((currentSlideIndex + 1) / slides.length) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateUI();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            updateUI();
+            toggleTOC(true);
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if(content.classList.contains('open')) {
+                content.classList.remove('open');
+            } else {
+                content.classList.add('open');
+            }
+        }
+
+        function populateTOC() {
+            let currentSection = "";
+            slides.forEach((slide, index) => {
+                const section = slide.getAttribute('data-section');
+                const title = slide.getAttribute('data-title');
+                
+                if (section !== currentSection) {
+                    currentSection = section;
+                    const header = document.createElement('div');
+                    header.className = "col-span-full mt-6 mb-2 text-accent-indigo font-black border-b border-white/10 pb-2 text-[10px] uppercase tracking-widest font-mono";
+                    header.innerText = currentSection;
+                    tocList.appendChild(header);
+                }
+
+                const btn = document.createElement('button');
+                btn.className = "text-left w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-transparent hover:border-accent-indigo/40 text-gray-300 flex items-center gap-3 text-sm font-semibold group focus:outline-none focus:ring-1 focus:ring-accent-indigo";
+                btn.innerHTML = `<span class="bg-black/40 text-gray-500 group-hover:text-accent-indigo group-hover:border-accent-indigo/50 w-7 h-7 flex items-center justify-center rounded text-xs font-mono shrink-0 border border-white/5 transition-colors">${index + 1}</span> <span class="truncate">${title}</span>`;
+                btn.onclick = () => goToSlide(index);
+                tocList.appendChild(btn);
+            });
+        }
+
+        function toggleTOC(forceClose = false) {
+            if (forceClose || !tocModal.classList.contains('hidden')) {
+                tocModal.classList.add('hidden');
+                setTimeout(() => tocModal.classList.remove('flex'), 50);
+            } else {
+                tocModal.classList.remove('hidden');
+                tocModal.classList.add('flex');
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error(err));
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if(tocModal.classList.contains('hidden')) { e.preventDefault(); nextSlide(); }
+            } else if (e.key === 'ArrowLeft') {
+                if(tocModal.classList.contains('hidden')) { e.preventDefault(); prevSlide(); }
+            } else if (e.key === 'Escape') {
+                toggleTOC(true);
+            }
+        });
+
+        // Touch Navigation (Swipe)
+        let touchstartX = 0;
+        let touchendX = 0;
+        const mainElement = document.querySelector('main');
+        
+        mainElement.addEventListener('touchstart', e => { 
+            touchstartX = e.changedTouches[0].screenX; 
+        }, {passive: true});
+        
+        mainElement.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            if (touchendX < touchstartX - 70) nextSlide();
+            if (touchendX > touchstartX + 70) prevSlide();
+        }
+
+        // Initialize
+        populateTOC();
+        updateUI();
+    </script>
+</body>
+</html>

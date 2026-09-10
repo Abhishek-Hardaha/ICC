@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing & Virtualization Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Outfit"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #000000; 
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .glow-blue {
+            box-shadow: 0 0 50px -5px rgba(37, 99, 235, 0.35), inset 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+        .glow-blue:hover {
+            box-shadow: 0 0 75px 5px rgba(37, 99, 235, 0.55), inset 0 0 25px rgba(59, 130, 246, 0.2);
+            border-color: rgba(96, 165, 250, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 50px -5px rgba(168, 85, 247, 0.35), inset 0 0 20px rgba(192, 132, 252, 0.1);
+        }
+        .glow-purple:hover {
+            box-shadow: 0 0 75px 5px rgba(168, 85, 247, 0.55), inset 0 0 25px rgba(192, 132, 252, 0.2);
+            border-color: rgba(216, 180, 254, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .sub-glow-blue:hover {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+            border-color: rgba(96, 165, 250, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .sub-glow-purple:hover {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+            border-color: rgba(216, 180, 254, 0.5);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-screen bg-black flex items-center justify-center p-4">
+
+    <!-- 4 Buttons Centered Container -->
+    <div id="hub-container" class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 max-w-5xl w-full transition-opacity duration-300">
+        
+        <!-- Unit 2 Group -->
+        <div class="flex flex-col items-center gap-5 w-full max-w-[360px]">
+            <!-- Unit 2 Main Button -->
+            <a href="unit2.html" onclick="launchTarget(event, 'unit2.html')" class="glow-blue group w-full h-[96px] rounded-full bg-[#060b17]/80 backdrop-blur-xl border border-blue-500/35 px-8 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
+                <div class="flex items-center gap-5">
+                    <!-- Book Icon -->
+                    <svg class="w-8 h-8 text-blue-400 shrink-0 group-hover:scale-105 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <!-- Divider -->
+                    <div class="h-8 w-[1px] bg-white/20"></div>
+                    <!-- Unit 2 Label -->
+                    <span class="text-3xl font-medium text-white tracking-wide">Unit 2</span>
+                </div>
+                <!-- Right Arrow -->
+                <svg class="w-6 h-6 text-blue-400 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+
+            <!-- Unit 2 Sample Questions Button -->
+            <a href="unit2_questions.html" onclick="launchTarget(event, 'unit2_questions.html')" class="sub-glow-blue group w-[260px] h-[48px] rounded-full bg-[#050811]/90 backdrop-blur-lg border border-blue-500/25 px-6 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
+                <span class="text-sm font-normal text-gray-300 group-hover:text-white transition-colors duration-200">Sample Questions</span>
+                <svg class="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Unit 3 Group -->
+        <div class="flex flex-col items-center gap-5 w-full max-w-[360px]">
+            <!-- Unit 3 Main Button -->
+            <a href="unit3.html" onclick="launchTarget(event, 'unit3.html')" class="glow-purple group w-full h-[96px] rounded-full bg-[#11071c]/80 backdrop-blur-xl border border-purple-500/35 px-8 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
+                <div class="flex items-center gap-5">
+                    <!-- Book Icon -->
+                    <svg class="w-8 h-8 text-purple-400 shrink-0 group-hover:scale-105 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <!-- Divider -->
+                    <div class="h-8 w-[1px] bg-white/20"></div>
+                    <!-- Unit 3 Label -->
+                    <span class="text-3xl font-medium text-white tracking-wide">Unit 3</span>
+                </div>
+                <!-- Right Arrow -->
+                <svg class="w-6 h-6 text-purple-400 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+
+            <!-- Unit 3 Sample Questions Button -->
+            <a href="unit3_questions.html" onclick="launchTarget(event, 'unit3_questions.html')" class="sub-glow-purple group w-[260px] h-[48px] rounded-full bg-[#0d0517]/90 backdrop-blur-lg border border-purple-500/25 px-6 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
+                <span class="text-sm font-normal text-gray-300 group-hover:text-white transition-colors duration-200">Sample Questions</span>
+                <svg class="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Seamless Fullscreen Presentation Stage (Never Drops Out of Fullscreen) -->
+    <iframe id="stage-frame" class="fixed inset-0 w-screen h-screen border-0 z-50 bg-black hidden" allow="fullscreen"></iframe>
+
+    <!-- Complete Fullscreen Transition Engine -->
+    <script>
+        const stageFrame = document.getElementById('stage-frame');
+        const hubContainer = document.getElementById('hub-container');
+
+        function launchTarget(event, url) {
+            if (event) event.preventDefault();
+
+            // 1. Immediately request native browser full complete fullscreen
+            const docEl = document.documentElement;
+            const requestFs = docEl.requestFullscreen || 
+                              docEl.webkitRequestFullscreen || 
+                              docEl.mozRequestFullScreen || 
+                              docEl.msRequestFullscreen;
+
+            if (requestFs && !document.fullscreenElement) {
+                requestFs.call(docEl).catch(err => {
+                    console.warn('Fullscreen request dismissed or blocked:', err);
+                });
+            }
+
+            // 2. Load into seamless stage frame without unloading parent page
+            // This prevents browser from auto-canceling fullscreen on page navigation!
+            stageFrame.src = url;
+            stageFrame.classList.remove('hidden');
+            hubContainer.classList.add('hidden');
+        }
+
+        function closeStage() {
+            stageFrame.src = 'about:blank';
+            stageFrame.classList.add('hidden');
+            hubContainer.classList.remove('hidden');
+        }
+
+        // Listen for Home button navigation from child deck
+        window.addEventListener('message', (e) => {
+            if (e.data === 'goHome' || e.data === 'closeStage') {
+                closeStage();
+            }
+        });
+    </script>
+
+</body>
+</html>

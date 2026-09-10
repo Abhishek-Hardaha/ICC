@@ -1,0 +1,19 @@
+Unit 2: Virtualization
+
+Implementation Levels of Virtualization
+Virtualization Structure, Tools and Mechanisms
+Hypervisor and Xen Architecture
+Binary Translation with Full Virtualization
+Para-Virtualization
+Cloud Programming
+Open Source Cloud Implementation
+Cloud Services: Infrastructure as a Service (IaaS)
+Unit 3: Cloud Architecture
+
+Cloud Architecture – Layers and Models
+Architecture for Cloud Application
+Cloud Application Requirements
+SOA for Cloud Applications
+Parallelization within Cloud Applications
+Multi-tier Application Architecture
+Study of Cloud Tools and Platforms
