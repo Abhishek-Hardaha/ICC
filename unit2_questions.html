@@ -17,7 +17,7 @@
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        space: '#05070e',
+                        space: '#050508',
                         accent: {
                             cyan: '#06b6d4',
                             blue: '#3b82f6',
@@ -35,17 +35,11 @@
 
     <style>
         body { 
-            background-color: #05070e; 
+            background-color: #050508; 
             color: #f1f5f9; 
             font-family: 'Outfit', sans-serif;
             overflow: hidden;
-            background-image: 
-            radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.10) 0%, transparent 40%),
-            radial-gradient(circle at 85% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.06) 0%, transparent 50%),
-            radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)
-        ;
-            background-size: auto, auto, auto, 28px 28px;
+            background-image: radial-gradient(circle at 50% -20%, rgba(6, 182, 212, 0.07) 0%, transparent 60%);
             background-attachment: fixed;
         }
 
@@ -55,19 +49,19 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(12, 16, 26, 0.90) 0%, rgba(8, 11, 18, 0.95) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(10, 11, 16, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.8);
         }
 
         .diagram-container {
-            background: linear-gradient(135deg, rgba(10, 14, 24, 0.92) 0%, rgba(6, 9, 15, 0.96) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.22);
+            background: rgba(8, 9, 14, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.8);
         }
 
         .slide { 
@@ -84,10 +78,10 @@
         }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col justify-between select-none">
+<body class="h-screen w-screen flex flex-col justify-between select-none bg-[#050508]">
 
     <!-- Clean Top Navigation Header -->
-    <header class="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between border-b border-white/10 z-40 bg-space/90 backdrop-blur-xl shrink-0">
+    <header class="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between border-b border-white/10 z-40 bg-[#050508]/95 backdrop-blur-xl shrink-0">
         <!-- Left: Branding & Quick Links -->
         <div class="flex items-center gap-3">
             <a href="index.html" onclick="if(window.parent && window.parent !== window) { event.preventDefault(); window.parent.postMessage('goHome', '*'); }" class="flex items-center gap-2 text-xs font-mono font-medium px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 text-gray-200 hover:text-white border border-white/10 transition-all">
@@ -117,7 +111,7 @@
     </header>
 
     <!-- Table of Contents Modal -->
-    <div id="toc-modal" class="fixed inset-0 bg-black/85 z-[70] hidden flex-col items-center justify-center backdrop-blur-2xl p-4 transition-opacity duration-300">
+    <div id="toc-modal" class="fixed inset-0 bg-black/90 z-[70] hidden flex-col items-center justify-center backdrop-blur-2xl p-4 transition-opacity duration-300">
         <div class="glass-card w-full max-w-5xl rounded-3xl p-6 sm:p-8 relative flex flex-col h-[85vh] shadow-2xl border border-white/15">
             <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4 shrink-0">
                 <div>
@@ -169,7 +163,7 @@
             </div>
 
             <!-- Viewport Canvas: Huge, expansive container -->
-            <div id="lightbox-viewport" class="w-full flex-1 min-h-0 bg-[#03050a] rounded-2xl border border-white/10 flex items-center justify-center p-4 sm:p-8 overflow-auto custom-scrollbar relative">
+            <div id="lightbox-viewport" class="w-full flex-1 min-h-0 bg-[#030306] rounded-2xl border border-white/10 flex items-center justify-center p-4 sm:p-8 overflow-auto custom-scrollbar relative">
                 <div id="lightbox-content" class="w-full h-full flex items-center justify-center transition-transform duration-150 origin-center">
                     <!-- Cloned SVG goes here -->
                 </div>
@@ -184,8 +178,8 @@
     <!-- Question 1: Server Consolidation via Hypervisor -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q1: Server Consolidation via Hypervisor" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -199,14 +193,14 @@
                         Topic: Server Consolidation via Hypervisor
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Server Virtualization & Bare-Metal Hypervisor Consolidation
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -218,7 +212,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -290,7 +284,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-1" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-1', 'Server Consolidation via Hypervisor')">
+                    <div id="svg-q2-1" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-1', 'Server Consolidation via Hypervisor')">
                         <svg viewBox="0 0 540 340" class="w-full h-full max-h-[300px]" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-u2-1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker>
@@ -331,7 +325,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw 20 small physical server boxes on left -> Converging arrows into a 'Hypervisor Resource Pool' box -> 3 Physical Host servers with multiple Guest VM boxes on top.
                 </div>
             </div>
@@ -343,8 +337,8 @@
     <!-- Question 2: Full Virtualization without OS Modification -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q2: Full Virtualization without OS Modification" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -358,14 +352,14 @@
                         Topic: Full Virtualization without OS Modification
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Full Virtualization with Binary Translation
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -377,7 +371,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -449,7 +443,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-2" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-2', 'Full Virtualization without OS Modification')">
+                    <div id="svg-q2-2" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-2', 'Full Virtualization without OS Modification')">
                         <svg viewBox="0 0 540 340" class="w-full h-full max-h-[300px]" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-u2-2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/></marker>
@@ -492,7 +486,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw 3 layers: Top has 2 boxes (Unmodified Windows & Linux) -> Middle has Hypervisor with 'Binary Translation + Code Cache' -> Bottom has Physical CPU/HW.
                 </div>
             </div>
@@ -504,8 +498,8 @@
     <!-- Question 3: Paravirtualization Direct Hypercall Communication -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q3: Paravirtualization Direct Hypercall Communication" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -519,14 +513,14 @@
                         Topic: Paravirtualization Direct Hypercall Communication
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Paravirtualization with Hypercall Interface
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -538,7 +532,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -610,7 +604,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-3" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-3', 'Paravirtualization Direct Hypercall Communication')">
+                    <div id="svg-q2-3" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-3', 'Paravirtualization Direct Hypercall Communication')">
                         <svg viewBox="0 0 540 340" class="w-full h-full max-h-[300px]" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-u2-3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/></marker>
@@ -650,7 +644,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Guest OS with 'Modified Kernel' calling 'Hypercall API' with direct arrow to 'Hypervisor (Ring 0)' without any binary translation box.
                 </div>
             </div>
@@ -662,8 +656,8 @@
     <!-- Question 4: Hypervisor Multi-Resource Management -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q4: Hypervisor Multi-Resource Management" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -677,14 +671,14 @@
                         Topic: Hypervisor Multi-Resource Management
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Hypervisor 4-Pillar Hardware Virtualization Management
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -696,7 +690,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -768,7 +762,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-4" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-4', 'Hypervisor Multi-Resource Management')">
+                    <div id="svg-q2-4" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-4', 'Hypervisor Multi-Resource Management')">
                         <svg viewBox="0 0 540 340" class="w-full h-full max-h-[300px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Top: Virtual Machines -->
   <rect x="40" y="20" width="135" height="45" rx="8" fill="#1e293b" stroke="#38bdf8"/><text x="107" y="47" fill="#e2e8f0" font-size="11" font-weight="bold" text-anchor="middle">VM 1 (vCPU, vRAM)</text>
@@ -813,7 +807,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw a central 'Hypervisor Resource Arbiter' box connected to 4 quadrants: CPU, Memory, Storage, Network, each bridging to physical hardware below.
                 </div>
             </div>
@@ -825,8 +819,8 @@
     <!-- Question 5: Xen Architecture: Microkernel & Domain Separation -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q5: Xen Architecture: Microkernel & Domain Separation" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -840,14 +834,14 @@
                         Topic: Xen Architecture: Microkernel & Domain Separation
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Xen Microkernel, Dom0 Management & DomU Guest Domains
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -859,7 +853,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -931,7 +925,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-5" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-5', 'Xen Architecture: Microkernel & Domain Separation')">
+                    <div id="svg-q2-5" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-5', 'Xen Architecture: Microkernel & Domain Separation')">
                         <svg viewBox="0 0 540 340" class="w-full h-full max-h-[300px]" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-u2-5" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker>
@@ -970,7 +964,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw top layer with Dom0 on left and DomU on right -> Middle communication channel (XenBus/XenStore) -> Xen Hypervisor box -> Hardware box.
                 </div>
             </div>
@@ -982,8 +976,8 @@
     <!-- Question 6: Binary Translation Mechanics & Trapping -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q6: Binary Translation Mechanics & Trapping" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -997,14 +991,14 @@
                         Topic: Binary Translation Mechanics & Trapping
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Dynamic Binary Translation & Code Cache
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1016,7 +1010,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1088,7 +1082,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-6" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-6', 'Binary Translation Mechanics & Trapping')">
+                    <div id="svg-q2-6" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-6', 'Binary Translation Mechanics & Trapping')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-6" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker></defs>
   <!-- Step 1: Input Code Stream -->
@@ -1132,7 +1126,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw a flowchart: Guest Instruction Stream -> Instruction Decoder/Filter -> Binary Translator -> Code Cache -> Physical CPU Execution.
                 </div>
             </div>
@@ -1144,8 +1138,8 @@
     <!-- Question 7: Popek-Goldberg Virtualization Theorem -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q7: Popek-Goldberg Virtualization Theorem" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1159,14 +1153,14 @@
                         Topic: Popek-Goldberg Virtualization Theorem
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Popek-Goldberg Virtualization Condition & x86 Virtualization Hole
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1178,7 +1172,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1250,7 +1244,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-7" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-7', 'Popek-Goldberg Virtualization Theorem')">
+                    <div id="svg-q2-7" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-7', 'Popek-Goldberg Virtualization Theorem')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: Venn Diagram of Popek Goldberg Condition -->
   <rect x="25" y="25" width="240" height="275" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
@@ -1294,7 +1288,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw a Venn Diagram: Big circle (Privileged Instructions), Small circle (Sensitive Instructions). Show the overlap and the unprivileged sensitive gap ('The x86 Hole').
                 </div>
             </div>
@@ -1306,8 +1300,8 @@
     <!-- Question 8: Full Virtualization vs Paravirtualization Trade-off -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q8: Full Virtualization vs Paravirtualization Trade-off" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1321,14 +1315,14 @@
                         Topic: Full Virtualization vs Paravirtualization Trade-off
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Comparative Architectural Evaluation & Recommendation
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1340,7 +1334,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1412,7 +1406,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-8" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-8', 'Full Virtualization vs Paravirtualization Trade-off')">
+                    <div id="svg-q2-8" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-8', 'Full Virtualization vs Paravirtualization Trade-off')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: Full Virtualization Stack -->
   <rect x="25" y="25" width="235" height="275" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
@@ -1442,7 +1436,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw a side-by-side comparison table / dual architecture stack showing Full Virt (BT + Code Cache) vs Para-Virt (Direct Hypercalls).
                 </div>
             </div>
@@ -1454,8 +1448,8 @@
     <!-- Question 9: CPU & Memory Contention Resolution -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q9: CPU & Memory Contention Resolution" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1469,14 +1463,14 @@
                         Topic: CPU & Memory Contention Resolution
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Proportional CPU Scheduling & Memory Ballooning
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1488,7 +1482,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1560,7 +1554,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-9" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-9', 'CPU & Memory Contention Resolution')">
+                    <div id="svg-q2-9" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-9', 'CPU & Memory Contention Resolution')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-9" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker></defs>
   <!-- Left: VM 1 (Surrendering Idle RAM via Balloon) -->
@@ -1593,7 +1587,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Hypervisor Resource Arbiter in center. On top: VM 1 (Inflating Balloon Driver) -> Memory Frame surrendered -> Reassigned to VM 2.
                 </div>
             </div>
@@ -1605,8 +1599,8 @@
     <!-- Question 10: Multi-Tenant Virtual Workspaces & Isolation -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q10: Multi-Tenant Virtual Workspaces & Isolation" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1620,14 +1614,14 @@
                         Topic: Multi-Tenant Virtual Workspaces & Isolation
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Multi-Tenancy Isolation, Memory Tagging & Hardware Rings
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1639,7 +1633,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1711,7 +1705,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-10" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-10', 'Multi-Tenant Virtual Workspaces & Isolation')">
+                    <div id="svg-q2-10" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-10', 'Multi-Tenant Virtual Workspaces & Isolation')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Bank A VM -->
   <rect x="30" y="30" width="215" height="120" rx="10" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
@@ -1744,7 +1738,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Bank A VM and Bank B VM separated by a thick 'Isolation Wall' -> Hypervisor Memory Segmentation Barrier -> Physical Hardware.
                 </div>
             </div>
@@ -1756,8 +1750,8 @@
     <!-- Question 11: Type 1 Bare-Metal vs Type 2 Hosted Hypervisors -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q11: Type 1 Bare-Metal vs Type 2 Hosted Hypervisors" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1771,14 +1765,14 @@
                         Topic: Type 1 Bare-Metal vs Type 2 Hosted Hypervisors
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Bare-Metal vs Hosted Architecture & Failure Domains
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1790,7 +1784,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -1862,7 +1856,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-11" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-11', 'Type 1 Bare-Metal vs Type 2 Hosted Hypervisors')">
+                    <div id="svg-q2-11" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-11', 'Type 1 Bare-Metal vs Type 2 Hosted Hypervisors')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left Stack: Type 1 Bare Metal -->
   <rect x="25" y="25" width="235" height="280" rx="10" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
@@ -1901,7 +1895,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw two vertical stacks: Left (Type 1: HW -> Hypervisor -> VMs) vs Right (Type 2: HW -> Host OS -> Hypervisor -> VMs).
                 </div>
             </div>
@@ -1913,8 +1907,8 @@
     <!-- Question 12: Hardware-Assisted Virtualization (Intel VT-x / AMD-V) -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q12: Hardware-Assisted Virtualization (Intel VT-x / AMD-V)" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -1928,14 +1922,14 @@
                         Topic: Hardware-Assisted Virtualization (Intel VT-x / AMD-V)
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: VMX Root / Non-Root Operation & VMCS Control Structure
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -1947,7 +1941,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2019,7 +2013,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-12" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-12', 'Hardware-Assisted Virtualization (Intel VT-x / AMD-V)')">
+                    <div id="svg-q2-12" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-12', 'Hardware-Assisted Virtualization (Intel VT-x / AMD-V)')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arr-u2-12a" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/></marker>
@@ -2062,7 +2056,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw two side-by-side vertical pillars: VMX Root (VMM) and VMX Non-Root (Guest VM). Draw arrows between them labeled 'VM-Entry' and 'VM-Exit' passing through VMCS.
                 </div>
             </div>
@@ -2074,8 +2068,8 @@
     <!-- Question 13: OS-Level Virtualization (Containers) vs Hypervisor VMs -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q13: OS-Level Virtualization (Containers) vs Hypervisor VMs" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2089,14 +2083,14 @@
                         Topic: OS-Level Virtualization (Containers) vs Hypervisor VMs
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Shared Kernel Containerization vs Hardware Emulation
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2108,7 +2102,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2180,7 +2174,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-13" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-13', 'OS-Level Virtualization (Containers) vs Hypervisor VMs')">
+                    <div id="svg-q2-13" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-13', 'OS-Level Virtualization (Containers) vs Hypervisor VMs')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: Containers (Shared Kernel) -->
   <rect x="25" y="25" width="235" height="280" rx="10" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
@@ -2226,7 +2220,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw two stacks: Left (Containers: App + Libs -> Shared Host OS Kernel -> Hardware) vs Right (VMs: App + Libs -> Guest OS -> Hypervisor -> Hardware).
                 </div>
             </div>
@@ -2238,8 +2232,8 @@
     <!-- Question 14: Storage Virtualization in Enterprise SAN/NAS -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q14: Storage Virtualization in Enterprise SAN/NAS" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2253,14 +2247,14 @@
                         Topic: Storage Virtualization in Enterprise SAN/NAS
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Block-Level Storage Abstraction & Thin Provisioning
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2272,7 +2266,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2344,7 +2338,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-14" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-14', 'Storage Virtualization in Enterprise SAN/NAS')">
+                    <div id="svg-q2-14" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-14', 'Storage Virtualization in Enterprise SAN/NAS')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Top: VMs -->
   <rect x="35" y="25" width="140" height="45" rx="6" fill="#1e293b" stroke="#38bdf8"/><text x="105" y="52" fill="#e2e8f0" font-size="10" font-weight="bold" text-anchor="middle">VM 1 (vDisk: 50GB)</text>
@@ -2378,7 +2372,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw top layer (Virtual Machines) -> Middle layer (Storage Virtualization Engine / Virtual Pool) -> Bottom layer (Heterogeneous SAN, NAS, NVMe arrays).
                 </div>
             </div>
@@ -2390,8 +2384,8 @@
     <!-- Question 15: Network Virtualization & Software-Defined Networking (SDN) -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q15: Network Virtualization & Software-Defined Networking (SDN)" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2405,14 +2399,14 @@
                         Topic: Network Virtualization & Software-Defined Networking (SDN)
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Control Plane vs Data Plane Decoupling & Virtual Switches
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2424,7 +2418,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2496,7 +2490,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-15" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-15', 'Network Virtualization & Software-Defined Networking (SDN)')">
+                    <div id="svg-q2-15" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-15', 'Network Virtualization & Software-Defined Networking (SDN)')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-15" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker></defs>
   <!-- Top: Centralized SDN Controller (Control Plane) -->
@@ -2531,7 +2525,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw top box: Centralized SDN Controller (Control Plane) -> Downward OpenFlow / Southbound API arrows -> Virtual Switches in Hypervisors (Data Plane) -> Physical Network.
                 </div>
             </div>
@@ -2543,8 +2537,8 @@
     <!-- Question 16: Code Cache Management in Binary Translation -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q16: Code Cache Management in Binary Translation" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2558,14 +2552,14 @@
                         Topic: Code Cache Management in Binary Translation
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Code Cache Indexing, Block Chaining & Garbage Collection
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2577,7 +2571,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2649,7 +2643,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-16" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-16', 'Code Cache Management in Binary Translation')">
+                    <div id="svg-q2-16" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-16', 'Code Cache Management in Binary Translation')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-16" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/></marker></defs>
   <!-- Guest Instruction PC -->
@@ -2693,7 +2687,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Guest PC pointing to Hash Table -> Translates to Code Cache Block A -> Directly chained jump arrow to Block B -> Direct CPU execution.
                 </div>
             </div>
@@ -2705,8 +2699,8 @@
     <!-- Question 17: x86 Privilege Rings & Ring Deprivileging -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q17: x86 Privilege Rings & Ring Deprivileging" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2720,14 +2714,14 @@
                         Topic: x86 Privilege Rings & Ring Deprivileging
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: x86 Protection Rings (0, 1, 3) & Ring Compression
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2739,7 +2733,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2811,7 +2805,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-17" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-17', 'x86 Privilege Rings & Ring Deprivileging')">
+                    <div id="svg-q2-17" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-17', 'x86 Privilege Rings & Ring Deprivileging')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: Concentric Ring Diagram -->
   <g transform="translate(140, 155)">
@@ -2851,7 +2845,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw 3 concentric rings or 3 stacked horizontal bars: Ring 0 (VMM Hypervisor) -> Ring 1 (Guest OS Kernel) -> Ring 3 (User Application).
                 </div>
             </div>
@@ -2863,8 +2857,8 @@
     <!-- Question 18: Level 1: Instruction Set Architecture (ISA) Level -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q18: Level 1: Instruction Set Architecture (ISA) Level" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -2878,14 +2872,14 @@
                         Topic: Level 1: Instruction Set Architecture (ISA) Level
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: ISA Emulation, Code Translation & Interpretation
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -2897,7 +2891,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -2969,7 +2963,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-18" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-18', 'Level 1: Instruction Set Architecture (ISA) Level')">
+                    <div id="svg-q2-18" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-18', 'Level 1: Instruction Set Architecture (ISA) Level')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-18" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4"/></marker></defs>
   <!-- Source ISA Layer -->
@@ -2999,7 +2993,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw top box: Source App & OS (x86 ISA) -> Middle box: ISA Translation / Emulation Engine (QEMU) -> Bottom box: Physical Hardware (ARM64 ISA).
                 </div>
             </div>
@@ -3011,8 +3005,8 @@
     <!-- Question 19: Level 2: Hardware Abstraction Layer (HAL) Level -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q19: Level 2: Hardware Abstraction Layer (HAL) Level" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3026,14 +3020,14 @@
                         Topic: Level 2: Hardware Abstraction Layer (HAL) Level
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Virtual Device Drivers & Virtual Motherboard Abstraction
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3045,7 +3039,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3117,7 +3111,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-19" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-19', 'Level 2: Hardware Abstraction Layer (HAL) Level')">
+                    <div id="svg-q2-19" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-19', 'Level 2: Hardware Abstraction Layer (HAL) Level')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Guest OS Layer -->
   <rect x="40" y="25" width="460" height="60" rx="8" fill="#0f172a" stroke="#38bdf8"/>
@@ -3152,7 +3146,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Guest OS -> Standardized Virtual Devices (vNIC, vDisk) -> Hypervisor Device Emulation -> Physical Hardware Drivers -> Real Silicon.
                 </div>
             </div>
@@ -3164,8 +3158,8 @@
     <!-- Question 20: Level 3: Operating System Level Virtualization -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q20: Level 3: Operating System Level Virtualization" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3179,14 +3173,14 @@
                         Topic: Level 3: Operating System Level Virtualization
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: OS Level Containers, Linux Namespaces & cgroups
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3198,7 +3192,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3270,7 +3264,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-20" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-20', 'Level 3: Operating System Level Virtualization')">
+                    <div id="svg-q2-20" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-20', 'Level 3: Operating System Level Virtualization')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Containers on Top -->
   <rect x="35" y="25" width="140" height="75" rx="8" fill="#0f172a" stroke="#06b6d4" stroke-width="1.5"/>
@@ -3309,7 +3303,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw top boxes: Container 1, Container 2, Container 3 -> Shared layer: Linux Kernel with Namespaces + cgroups -> Physical Hardware.
                 </div>
             </div>
@@ -3321,8 +3315,8 @@
     <!-- Question 21: Level 4 & 5: Library Level (WINE) vs Application Level (JVM) -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q21: Level 4 & 5: Library Level (WINE) vs Application Level (JVM)" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3336,14 +3330,14 @@
                         Topic: Level 4 & 5: Library Level (WINE) vs Application Level (JVM)
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: API Translation (WINE) vs Bytecode Virtual Machines (JVM)
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3355,7 +3349,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3427,7 +3421,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-21" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-21', 'Level 4 & 5: Library Level (WINE) vs Application Level (JVM)')">
+                    <div id="svg-q2-21" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-21', 'Level 4 & 5: Library Level (WINE) vs Application Level (JVM)')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: Level 4 Library Level (WINE) -->
   <rect x="25" y="25" width="235" height="280" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
@@ -3459,7 +3453,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw side-by-side stacks: Left (Win App -> WINE API translation -> Linux glibc) vs Right (Java App -> Bytecode -> JVM JIT -> OS).
                 </div>
             </div>
@@ -3471,8 +3465,8 @@
     <!-- Question 22: Cloud Principle 2: Business Continuity & Disaster Recovery -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q22: Cloud Principle 2: Business Continuity & Disaster Recovery" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3486,14 +3480,14 @@
                         Topic: Cloud Principle 2: Business Continuity & Disaster Recovery
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: RTO / RPO Targets, Synchronous Replication & Automated DNS Failover
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3505,7 +3499,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3577,7 +3571,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-22" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-22', 'Cloud Principle 2: Business Continuity & Disaster Recovery')">
+                    <div id="svg-q2-22" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-22', 'Cloud Principle 2: Business Continuity & Disaster Recovery')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <defs><marker id="arr-u2-22" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/></marker></defs>
   <!-- Route 53 DNS on Top -->
@@ -3611,7 +3605,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Primary DC (Active DB + App) -> Synchronous Replication arrow -> Secondary DC (Standby DB) with Route 53 DNS switching traffic on failure.
                 </div>
             </div>
@@ -3623,8 +3617,8 @@
     <!-- Question 23: Cloud Principle 3: Elastic Expansion vs Over-Provisioning -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q23: Cloud Principle 3: Elastic Expansion vs Over-Provisioning" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3638,14 +3632,14 @@
                         Topic: Cloud Principle 3: Elastic Expansion vs Over-Provisioning
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Dynamic Elastic Auto-Scaling vs Static Capital Expenditure
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3657,7 +3651,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3729,7 +3723,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-23" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-23', 'Cloud Principle 3: Elastic Expansion vs Over-Provisioning')">
+                    <div id="svg-q2-23" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-23', 'Cloud Principle 3: Elastic Expansion vs Over-Provisioning')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Graph Axis -->
   <line x1="60" y1="260" x2="480" y2="260" stroke="#64748b" stroke-width="2"/>
@@ -3757,7 +3751,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw a 2D line graph: X-axis (Time), Y-axis (Resources). Draw a wavy Demand Curve. Show a high flat line (Static Waste) vs a stair-step line following demand (Elastic Scaling).
                 </div>
             </div>
@@ -3769,8 +3763,8 @@
     <!-- Question 24: High-Performance Computing (HPC) vs Grid Computing -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q24: High-Performance Computing (HPC) vs Grid Computing" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3784,14 +3778,14 @@
                         Topic: High-Performance Computing (HPC) vs Grid Computing
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: Tightly-Coupled HPC vs Loosely-Coupled Distributed Grid
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3803,7 +3797,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -3875,7 +3869,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-24" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-24', 'High-Performance Computing (HPC) vs Grid Computing')">
+                    <div id="svg-q2-24" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-24', 'High-Performance Computing (HPC) vs Grid Computing')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Left: HPC Cluster -->
   <rect x="25" y="25" width="235" height="280" rx="10" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
@@ -3912,7 +3906,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw two panels: Left (HPC: Homogeneous Nodes + InfiniBand switch + MPI) vs Right (Grid: Heterogeneous Nodes in University A, Lab B connected via WAN).
                 </div>
             </div>
@@ -3924,8 +3918,8 @@
     <!-- Question 25: AWS Nitro System Hardware Offload Architecture -->
     <div class="slide flex-col h-full overflow-y-auto pr-1 custom-scrollbar pb-1" data-title="Q25: AWS Nitro System Hardware Offload Architecture" data-section="Unit 2 Sample Questions">
         
-        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (Compact & Punchy) -->
-        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border-2 border-cyan-500/40 border-l-6 border-l-cyan-400 bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-blue-950/80 shadow-[0_4px_24px_rgba(6,182,212,0.16)]">
+        <!-- PROMINENT & HIGHLY DISTINGUISHABLE QUESTION BANNER (True Dark Theme) -->
+        <div class="mb-3 shrink-0 rounded-xl p-3.5 sm:p-4 border border-white/10 border-l-4 border-l-cyan-400 bg-[#0b0d14] shadow-lg shadow-black/80">
             <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow">
@@ -3939,14 +3933,14 @@
                         Topic: AWS Nitro System Hardware Offload Architecture
                     </span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/70 border border-cyan-400/30 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
+                <span class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-400/25 px-2.5 py-0.5 rounded-md font-medium hidden sm:inline">
                     Core Concept: ASIC Hardware Offload & Bare-Metal Hypervisor Decoupling
                 </span>
             </div>
 
             <!-- Distinct Question Prompt Box -->
-            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-slate-950/60 border border-white/10 flex items-start gap-3">
-                <div class="p-1.5 rounded-md bg-cyan-400/20 text-cyan-300 shrink-0 mt-0.5">
+            <div class="mt-2.5 p-2.5 sm:p-3 rounded-lg bg-[#06070c] border border-white/10 flex items-start gap-3">
+                <div class="p-1.5 rounded-md bg-cyan-400/15 text-cyan-300 shrink-0 mt-0.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <div class="flex-1">
@@ -3958,7 +3952,7 @@
             </div>
         </div>
 
-        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) - Fills remaining space cleanly -->
+        <!-- Main Split: Solution (Left) & Easy-to-Draw Diagram (Right) -->
         <div class="grid lg:grid-cols-12 gap-3.5 flex-1 min-h-0 pb-1">
             
             <!-- Left Column: Solution Card -->
@@ -4030,7 +4024,7 @@
                     </div>
 
                     <!-- Clean SVG Preview -->
-                    <div id="svg-q2-25" class="w-full flex-1 min-h-0 bg-slate-950/70 p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-25', 'AWS Nitro System Hardware Offload Architecture')">
+                    <div id="svg-q2-25" class="w-full flex-1 min-h-0 bg-[#06070c] p-2.5 rounded-xl border border-white/10 flex items-center justify-center cursor-zoom-in my-auto hover:border-accent-cyan/50 transition-all shadow-inner overflow-hidden" onclick="openDiagramLightbox('svg-q2-25', 'AWS Nitro System Hardware Offload Architecture')">
                         <svg viewBox="0 0 540 330" class="w-full h-full max-h-[290px]" xmlns="http://www.w3.org/2000/svg">
   <!-- Main Host Board on Left -->
   <rect x="25" y="25" width="260" height="280" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
@@ -4075,7 +4069,7 @@
                 </div>
 
                 <!-- Clean Pen & Paper Sketch Note -->
-                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-cyan-950/40 border border-cyan-500/25 p-2.5 rounded-xl leading-relaxed shrink-0">
+                <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-cyan-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
                     <span class="text-cyan-400 font-bold">✎ Pen &amp; Paper:</span> Draw Host Server: Left side (100% Host CPU running EC2 VMs) -> Dedicated PCIe bus -> Right side (Nitro Cards for VPC, EBS, Security).
                 </div>
             </div>
@@ -4086,7 +4080,7 @@
     </main>
 
     <!-- Bottom Persistent Controls Bar -->
-    <footer class="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 fixed bottom-0 left-0 right-0 z-40 bg-space/90 backdrop-blur-xl border-t border-white/10 py-2.5">
+    <footer class="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 fixed bottom-0 left-0 right-0 z-40 bg-[#050508]/95 backdrop-blur-xl border-t border-white/10 py-2.5">
         <div class="flex items-center justify-between gap-4">
             <!-- Left: Navigation Buttons -->
             <div class="flex items-center gap-3 w-1/3">
@@ -4105,7 +4099,7 @@
                 <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                     <div id="progress-bar" class="h-full bg-gradient-to-r from-accent-cyan via-accent-indigo to-accent-purple transition-all duration-300" style="width: 4%;"></div>
                 </div>
-                <div class="text-[10px] font-mono text-gray-300">Press <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">←</kbd> <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">→</kbd> or <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">Space</kbd></div>
+                <div class="text-[10px] font-mono text-gray-400">Press <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">←</kbd> <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">→</kbd> or <kbd class="px-1 py-0.5 bg-white/10 rounded border border-white/15">Space</kbd></div>
             </div>
 
             <!-- Right: Counter & Fullscreen -->
