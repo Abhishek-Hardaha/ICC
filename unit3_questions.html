@@ -17,7 +17,7 @@
                         mono: ['"JetBrains Mono"', 'monospace'],
                     },
                     colors: {
-                        space: '#0f0a21',
+                        space: '#070512',
                         accent: {
                             cyan: '#06b6d4',
                             blue: '#3b82f6',
@@ -35,18 +35,17 @@
 
     <style>
         body { 
-            background-color: #0f0a21; 
+            background-color: #070512; 
             color: #f1f5f9; 
             font-family: 'Outfit', sans-serif;
             overflow: hidden;
             background-image: 
-            radial-gradient(circle at 12% 12%, rgba(168, 85, 247, 0.24) 0%, transparent 45%),
-            radial-gradient(circle at 88% 18%, rgba(99, 102, 241, 0.22) 0%, transparent 50%),
-            radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.15) 0%, transparent 55%),
-            radial-gradient(circle at 50% 30%, rgba(88, 28, 135, 0.30) 0%, transparent 70%),
-            radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.10) 0%, transparent 40%),
+            radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+            radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
+            radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px)
         ;
-            background-size: auto, auto, auto, auto, 28px 28px;
+            background-size: auto, auto, auto, 28px 28px;
             background-attachment: fixed;
         }
 
@@ -56,19 +55,19 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(23, 16, 43, 0.82) 0%, rgba(14, 9, 27, 0.90) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, rgba(16, 12, 28, 0.90) 0%, rgba(10, 7, 18, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.10);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.7);
         }
 
         .diagram-container {
-            background: linear-gradient(135deg, rgba(20, 13, 38, 0.88) 0%, rgba(12, 8, 24, 0.94) 100%);
-            border: 1px solid rgba(168, 85, 247, 0.25);
+            background: linear-gradient(135deg, rgba(13, 9, 24, 0.92) 0%, rgba(8, 5, 15, 0.96) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.22);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.7);
         }
 
         .slide { 
@@ -135,14 +134,47 @@
         </div>
     </div>
 
-    <!-- Image Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[80] hidden flex-col items-center justify-center backdrop-blur-2xl p-4 sm:p-8" onclick="closeLightbox(event)">
-        <div class="relative max-w-7xl max-h-[92vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center w-full mb-3 text-sm">
-                <span id="lightbox-caption" class="text-white font-bold truncate">Architecture Diagram Preview</span>
-                <button onclick="closeLightbox()" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-accent-rose/30 text-white text-xs border border-white/20 transition-all">Close (Esc)</button>
+    <!-- ULTRA-WIDE IMMERSIVE DIAGRAM LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col items-center justify-center backdrop-blur-2xl p-3 sm:p-6" onclick="closeLightbox(event)">
+        <div class="relative w-[96vw] max-w-7xl h-[92vh] flex flex-col items-center justify-between glass-card p-4 sm:p-6 rounded-3xl border border-white/20 shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+            
+            <!-- Top Control Bar -->
+            <div class="flex items-center justify-between w-full pb-3 mb-2 border-b border-white/10 shrink-0">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-lg bg-accent-purple/20 text-accent-purple border border-accent-purple/40 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                        Architecture Visual Lightbox
+                    </span>
+                    <h3 id="lightbox-caption" class="text-white text-sm sm:text-base font-bold truncate max-w-md sm:max-w-xl">Architecture Diagram Preview</h3>
+                </div>
+
+                <!-- Action Controls: Zoom Out, Level, Zoom In, Reset, Close -->
+                <div class="flex items-center gap-2">
+                    <button onclick="zoomDiagram(-0.25)" title="Zoom Out" class="p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-mono font-bold border border-white/10 transition-all flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
+                    </button>
+                    <span id="zoom-level-text" class="text-xs font-mono text-gray-300 w-12 text-center select-none font-bold">100%</span>
+                    <button onclick="zoomDiagram(0.25)" title="Zoom In" class="p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-mono font-bold border border-white/10 transition-all flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    </button>
+                    <button onclick="resetDiagramZoom()" title="Reset Zoom" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 text-xs font-mono border border-white/10 transition-all hidden sm:inline">
+                        Reset
+                    </button>
+                    <div class="h-4 w-[1px] bg-white/20 mx-1"></div>
+                    <button onclick="closeLightbox()" class="px-3 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/35 text-rose-200 hover:text-white text-xs font-mono font-bold border border-rose-500/30 transition-all flex items-center gap-1">
+                        <span>Close</span>
+                        <kbd class="text-[10px] bg-black/40 px-1 rounded border border-white/10">Esc</kbd>
+                    </button>
+                </div>
             </div>
-            <div id="lightbox-content" class="w-full flex items-center justify-center p-4 bg-slate-950/80 rounded-2xl border border-white/15"></div>
+
+            <!-- Viewport Canvas: Huge, expansive container -->
+            <div id="lightbox-viewport" class="w-full flex-1 min-h-0 bg-[#03050a] rounded-2xl border border-white/10 flex items-center justify-center p-4 sm:p-8 overflow-auto custom-scrollbar relative">
+                <div id="lightbox-content" class="w-full h-full flex items-center justify-center transition-transform duration-150 origin-center">
+                    <!-- Cloned SVG goes here -->
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -4136,6 +4168,8 @@
         const lightboxModal = document.getElementById('lightbox-modal');
         const lightboxContent = document.getElementById('lightbox-content');
         const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxViewport = document.getElementById('lightbox-viewport');
+        let currentDiagramZoom = 1;
 
         function updateUI() {
             slides.forEach((slide, index) => {
@@ -4200,23 +4234,70 @@
             }
         }
 
+        // Immersive Full-Screen Diagram Zoom Engine
         function openDiagramLightbox(svgId, caption) {
-            const svgElem = document.getElementById(svgId);
+            const containerElem = document.getElementById(svgId);
+            if (!containerElem) return;
+
+            const svgElem = containerElem.querySelector('svg');
             if (!svgElem) return;
-            lightboxContent.innerHTML = svgElem.outerHTML;
-            const clonedSvg = lightboxContent.querySelector('svg');
-            if (clonedSvg) {
-                clonedSvg.style.maxHeight = '80vh';
-                clonedSvg.style.width = 'auto';
-            }
-            lightboxCaption.innerText = caption || 'Architecture Diagram';
+
+            currentDiagramZoom = 1;
+            updateZoomUI();
+
+            // Clone SVG and strip restrictive classes/styles
+            const clonedSvg = svgElem.cloneNode(true);
+            clonedSvg.removeAttribute('style');
+            clonedSvg.removeAttribute('class');
+            clonedSvg.removeAttribute('width');
+            clonedSvg.removeAttribute('height');
+            
+            // Force SVG to scale up and fill the entire lightbox container!
+            clonedSvg.style.width = '100%';
+            clonedSvg.style.height = '100%';
+            clonedSvg.style.maxWidth = '100%';
+            clonedSvg.style.maxHeight = '100%';
+            clonedSvg.style.display = 'block';
+
+            lightboxContent.innerHTML = '';
+            lightboxContent.appendChild(clonedSvg);
+
+            lightboxCaption.innerText = caption || 'Architecture Diagram Preview';
             lightboxModal.classList.remove('hidden');
             lightboxModal.classList.add('flex');
+        }
+
+        function zoomDiagram(delta) {
+            currentDiagramZoom = Math.min(Math.max(0.5, Math.round((currentDiagramZoom + delta) * 100) / 100), 3.0);
+            updateZoomUI();
+        }
+
+        function resetDiagramZoom() {
+            currentDiagramZoom = 1;
+            updateZoomUI();
+        }
+
+        function updateZoomUI() {
+            const zoomText = document.getElementById('zoom-level-text');
+            if (zoomText) zoomText.innerText = `${Math.round(currentDiagramZoom * 100)}%`;
+            if (lightboxContent) {
+                lightboxContent.style.transform = `scale(${currentDiagramZoom})`;
+            }
         }
 
         function closeLightbox() {
             lightboxModal.classList.add('hidden');
             lightboxModal.classList.remove('flex');
+            lightboxContent.innerHTML = '';
+            currentDiagramZoom = 1;
+        }
+
+        // Wheel Zoom inside lightbox
+        if (lightboxViewport) {
+            lightboxViewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                zoomDiagram(e.deltaY < 0 ? 0.15 : -0.15);
+            }, { passive: false });
         }
 
         function toggleFullScreen() {
@@ -4245,6 +4326,10 @@
             } else if (e.key === 'Escape') {
                 toggleTOC(true);
                 closeLightbox();
+            } else if (e.key === '+' || e.key === '=') {
+                if (!lightboxModal.classList.contains('hidden')) zoomDiagram(0.25);
+            } else if (e.key === '-' || e.key === '_') {
+                if (!lightboxModal.classList.contains('hidden')) zoomDiagram(-0.25);
             }
         });
 

@@ -169,13 +169,15 @@
     </div>
 
     <!-- Image Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[80] hidden flex-col items-center justify-center backdrop-blur-2xl p-4 sm:p-8" onclick="closeLightbox(event)">
-        <div class="relative max-w-7xl max-h-[92vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center w-full mb-3 text-sm">
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[80] hidden flex-col items-center justify-center backdrop-blur-2xl p-3 sm:p-6" onclick="closeLightbox(event)">
+        <div class="relative w-[96vw] max-w-7xl h-[92vh] flex flex-col items-center justify-between glass-panel p-4 sm:p-6 rounded-3xl border border-white/20 shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center w-full mb-3 text-sm pb-2 border-b border-white/10 shrink-0">
                 <span id="lightbox-caption" class="text-white font-bold truncate">Diagram Preview</span>
                 <button onclick="closeLightbox()" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-accent-rose/30 text-white text-xs border border-white/20 transition-all">Close (Esc)</button>
             </div>
-            <img id="lightbox-img" src="" alt="Infographic" class="max-h-[84vh] w-auto object-contain rounded-2xl border border-white/20 shadow-2xl">
+            <div class="w-full flex-1 min-h-0 flex items-center justify-center overflow-auto p-2">
+                <img id="lightbox-img" src="" alt="Infographic" class="max-h-full max-w-full object-contain rounded-2xl border border-white/10 shadow-2xl">
+            </div>
         </div>
     </div>
 
