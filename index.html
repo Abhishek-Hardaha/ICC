@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: #000000;
+            background: #000;
             font-family: 'Outfit', sans-serif;
             min-height: 100vh;
             width: 100vw;
@@ -21,7 +21,7 @@
             user-select: none;
         }
 
-        /* ─────────── Layout ─────────── */
+        /* ═══ Layout ═══ */
         #hub-container {
             display: flex;
             flex-direction: column;
@@ -29,11 +29,10 @@
             justify-content: center;
             gap: 3.5rem;
             width: 100%;
-            max-width: 900px;
+            max-width: 920px;
             padding: 2rem;
-            transition: opacity 0.3s;
+            transition: opacity 0.35s ease;
         }
-
         @media (min-width: 768px) {
             #hub-container { flex-direction: row; gap: 5rem; }
         }
@@ -44,213 +43,214 @@
             align-items: center;
             gap: 1.25rem;
             width: 100%;
-            max-width: 360px;
+            max-width: 370px;
         }
 
-        /* ─────────── Ambient Backlight ─────────── */
+        /* ═══ Button wrapper ═══ */
         .btn-wrap {
             position: relative;
             width: 100%;
             cursor: pointer;
             text-decoration: none;
             display: block;
+            /* overflow: visible so glow bleeds outside */
         }
 
-        /* Pulsing ambient glow layer — always visible */
-        .btn-wrap::before {
-            content: '';
+        /* ─── Rotating conic-gradient ray disc 1 ─── */
+        .ray1 {
             position: absolute;
-            inset: -10px;
-            border-radius: 9999px;
-            opacity: 0;
+            top: 50%; left: 50%;
+            width: 900px; height: 900px;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(18px);
-            transition: opacity 0.5s ease;
-            animation: ambientPulse 4s ease-in-out infinite;
+            filter: blur(28px);
+            opacity: 0.65;
+            mix-blend-mode: screen;
+            animation: spinCW 20s linear infinite;
+            -webkit-mask-image: radial-gradient(ellipse 42% 18% at 50% 50%, black 10%, transparent 70%);
+            mask-image:         radial-gradient(ellipse 42% 18% at 50% 50%, black 10%, transparent 70%);
+        }
+        .ray2 {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 900px; height: 900px;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(36px);
+            opacity: 0.5;
+            mix-blend-mode: screen;
+            animation: spinCCW 30s linear infinite;
+            -webkit-mask-image: radial-gradient(ellipse 48% 22% at 50% 50%, black 10%, transparent 70%);
+            mask-image:         radial-gradient(ellipse 48% 22% at 50% 50%, black 10%, transparent 70%);
         }
 
-        .btn-wrap-blue::before {
-            background: radial-gradient(ellipse, rgba(37,99,235,0.55) 0%, rgba(96,165,250,0.3) 50%, transparent 75%);
+        .btn-wrap-blue  .ray1 { background: conic-gradient(from 0deg at 50% 50%, transparent 0%, rgba(37,99,235,0.85) 10%, transparent 28%, rgba(56,189,248,0.75) 48%, transparent 65%, rgba(99,102,241,0.7) 80%, transparent 95%); }
+        .btn-wrap-blue  .ray2 { background: conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(59,130,246,0.9) 14%, transparent 35%, rgba(147,197,253,0.7) 58%, transparent 80%); }
+        .btn-wrap-purple .ray1 { background: conic-gradient(from 0deg at 50% 50%, transparent 0%, rgba(168,85,247,0.85) 10%, transparent 28%, rgba(192,132,252,0.75) 48%, transparent 65%, rgba(236,72,153,0.6) 80%, transparent 95%); }
+        .btn-wrap-purple .ray2 { background: conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(139,92,246,0.9) 14%, transparent 35%, rgba(216,180,254,0.7) 58%, transparent 80%); }
+
+        @keyframes spinCW  { from { transform: translate(-50%,-50%) rotate(0deg);   } to { transform: translate(-50%,-50%) rotate(360deg);  } }
+        @keyframes spinCCW { from { transform: translate(-50%,-50%) rotate(0deg);   } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+        /* ─── Core ambient pulse (always on) ─── */
+        .ambient {
+            position: absolute;
+            inset: -12px;
+            border-radius: 9999px;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(20px);
+            animation: ambientPulse 5s ease-in-out infinite;
         }
-        .btn-wrap-purple::before {
-            background: radial-gradient(ellipse, rgba(168,85,247,0.55) 0%, rgba(192,132,252,0.3) 50%, transparent 75%);
-        }
+        .btn-wrap-blue   .ambient { background: radial-gradient(ellipse, rgba(37,99,235,0.5) 0%, rgba(96,165,250,0.25) 55%, transparent 78%); }
+        .btn-wrap-purple .ambient { background: radial-gradient(ellipse, rgba(168,85,247,0.5) 0%, rgba(192,132,252,0.25) 55%, transparent 78%); }
 
         @keyframes ambientPulse {
-            0%, 100% { opacity: 0.55; transform: scale(1); }
-            50%       { opacity: 1;    transform: scale(1.06); }
+            0%,100% { opacity: 0.7; transform: scale(1); }
+            50%      { opacity: 1.0; transform: scale(1.08); }
         }
 
-        /* Glossy border pill wrapper */
+        /* ─── Glossy border pill ─── */
         .btn-pill-outer {
             position: relative;
-            width: 100%;
+            z-index: 1;
             border-radius: 9999px;
             padding: 1.5px;
-            z-index: 1;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .btn-wrap-blue   .btn-pill-outer {
+            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(96,165,250,0.14) 45%, rgba(37,99,235,0.25) 100%);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8), 0 0 45px -10px rgba(37,99,235,0.45);
+        }
+        .btn-wrap-purple .btn-pill-outer {
+            background: linear-gradient(155deg, rgba(255,255,255,0.30) 0%, rgba(192,132,252,0.14) 45%, rgba(168,85,247,0.25) 100%);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8), 0 0 45px -10px rgba(168,85,247,0.45);
+        }
 
-        .btn-pill-outer-blue {
-            background: linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(96,165,250,0.12) 40%, rgba(37,99,235,0.22) 100%);
-            box-shadow: 0 8px 28px rgba(0,0,0,0.75), 0 0 40px -8px rgba(37,99,235,0.35);
-        }
-        .btn-pill-outer-purple {
-            background: linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(192,132,252,0.12) 40%, rgba(168,85,247,0.22) 100%);
-            box-shadow: 0 8px 28px rgba(0,0,0,0.75), 0 0 40px -8px rgba(168,85,247,0.35);
-        }
+        /* Hover — lift + bloom */
+        .btn-wrap:hover .btn-pill-outer { transform: translateY(-4px); }
+        .btn-wrap-blue:hover   .btn-pill-outer { box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(37,99,235,0.75); }
+        .btn-wrap-purple:hover .btn-pill-outer { box-shadow: 0 16px 48px rgba(0,0,0,0.9), 0 0 72px -4px rgba(168,85,247,0.75); }
+        .btn-wrap:active .btn-pill-outer { transform: scale(0.96) !important; }
 
-        /* Hover — lift + stronger glow */
-        .btn-wrap:hover .btn-pill-outer-blue {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.85), 0 0 65px -4px rgba(37,99,235,0.65);
-        }
-        .btn-wrap:hover .btn-pill-outer-purple {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.85), 0 0 65px -4px rgba(168,85,247,0.65);
-        }
-        .btn-wrap:active .btn-pill-outer { transform: scale(0.97); }
-
-        /* Inner glass surface */
+        /* ─── Inner glass surface ─── */
         .btn-pill-inner {
+            position: relative;
             width: 100%;
-            height: 88px;
+            height: 90px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            position: relative;
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
             overflow: hidden;
         }
+        .btn-wrap-blue   .btn-pill-inner { background: rgba(4, 9, 22, 0.82); }
+        .btn-wrap-purple .btn-pill-inner { background: rgba(12, 5, 24, 0.82); }
 
-        /* Glassy sheen overlay */
+        /* Top-half glassy sheen */
         .btn-pill-inner::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 50%;
+            top: 0; left: 0; right: 0; height: 52%;
             border-radius: 9999px 9999px 0 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.10) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, transparent 100%);
             pointer-events: none;
         }
-
-        .btn-pill-inner-blue   { background: rgba(6,11,23,0.82); }
-        .btn-pill-inner-purple { background: rgba(17,7,28,0.82); }
 
         .btn-left {
             display: flex;
             align-items: center;
             gap: 1.1rem;
         }
-
-        .btn-divider {
-            width: 1px;
-            height: 2rem;
+        .divider {
+            width: 1px; height: 2rem;
             background: rgba(255,255,255,0.18);
             flex-shrink: 0;
         }
-
         .btn-label {
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             font-weight: 500;
-            color: #ffffff;
-            letter-spacing: 0.02em;
+            color: #fff;
+            letter-spacing: 0.025em;
         }
+        .ico { width: 1.9rem; height: 1.9rem; flex-shrink: 0; transition: transform 0.3s; }
+        .btn-wrap:hover .ico-left  { transform: scale(1.12); }
+        .arrow { width: 1.35rem; height: 1.35rem; transition: transform 0.3s; }
+        .btn-wrap:hover .arrow { transform: translateX(6px); }
 
-        .btn-icon {
-            width: 1.9rem; height: 1.9rem;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-        }
-        .btn-wrap:hover .btn-icon-left  { transform: scale(1.1); }
+        .c-blue   { color: #60a5fa; }
+        .c-purple { color: #c084fc; }
 
-        .btn-arrow {
-            width: 1.4rem; height: 1.4rem;
-            transition: transform 0.3s ease;
-        }
-        .btn-wrap:hover .btn-arrow { transform: translateX(5px); }
-
-        .text-blue-400   { color: #60a5fa; }
-        .text-purple-400 { color: #c084fc; }
-
-        /* ─────────── Sub-buttons ─────────── */
+        /* ═══ Sub-buttons ═══ */
         .sub-btn {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 260px;
-            height: 44px;
+            width: 268px;
+            height: 46px;
             border-radius: 9999px;
-            padding: 0 1.25rem;
+            padding: 0 1.3rem;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1.5px solid rgba(255,255,255,0.1);
-            cursor: pointer;
             text-decoration: none;
+            cursor: pointer;
             transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
             z-index: 1;
         }
-
-        .sub-btn-blue   { background: rgba(5,8,17,0.9); }
-        .sub-btn-purple { background: rgba(13,5,23,0.9); }
-
-        .sub-btn:hover {
-            transform: translateY(-2px);
-        }
-        .sub-btn-blue:hover   { border-color: rgba(96,165,250,0.45); box-shadow: 0 0 28px rgba(37,99,235,0.3); }
-        .sub-btn-purple:hover { border-color: rgba(192,132,252,0.45); box-shadow: 0 0 28px rgba(168,85,247,0.3); }
+        .sub-btn-blue   { background: rgba(4,8,18,0.9); }
+        .sub-btn-purple { background: rgba(12,4,24,0.9); }
+        .sub-btn:hover { transform: translateY(-2px); }
+        .sub-btn-blue:hover   { border-color: rgba(96,165,250,0.5); box-shadow: 0 0 32px rgba(37,99,235,0.35); }
+        .sub-btn-purple:hover { border-color: rgba(192,132,252,0.5); box-shadow: 0 0 32px rgba(168,85,247,0.35); }
         .sub-btn:active { transform: scale(0.97); }
 
-        .sub-label {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #d1d5db;
-            transition: color 0.2s;
-        }
-        .sub-btn:hover .sub-label { color: #ffffff; }
-
-        .sub-arrow {
-            width: 1rem; height: 1rem;
-            transition: transform 0.3s;
-        }
+        .sub-label { font-size: 0.82rem; font-weight: 400; color: #d1d5db; transition: color 0.2s; }
+        .sub-btn:hover .sub-label { color: #fff; }
+        .sub-arrow { width: 1rem; height: 1rem; transition: transform 0.3s; }
         .sub-btn:hover .sub-arrow { transform: translateX(4px); }
     </style>
 </head>
 <body>
 
-    <!-- 4 Buttons Centered Container -->
     <div id="hub-container">
 
         <!-- Unit 2 Group -->
         <div class="unit-group">
-            <!-- Unit 2 Main Button -->
             <a href="unit2.html" onclick="launchTarget(event,'unit2.html')" class="btn-wrap btn-wrap-blue">
-                <div class="btn-pill-outer btn-pill-outer-blue">
-                    <div class="btn-pill-inner btn-pill-inner-blue">
+                <!-- Rotating light rays -->
+                <div class="ray1"></div>
+                <div class="ray2"></div>
+                <!-- Ambient pulse blob -->
+                <div class="ambient"></div>
+                <!-- Glossy border pill -->
+                <div class="btn-pill-outer">
+                    <div class="btn-pill-inner">
                         <div class="btn-left">
-                            <!-- Book icon -->
-                            <svg class="btn-icon btn-icon-left text-blue-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <svg class="ico ico-left c-blue" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
-                            <div class="btn-divider"></div>
+                            <div class="divider"></div>
                             <span class="btn-label">Unit 2</span>
                         </div>
-                        <svg class="btn-arrow text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <svg class="arrow c-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                         </svg>
                     </div>
                 </div>
             </a>
 
-            <!-- Unit 2 Sample Questions Button -->
             <a href="unit2_questions.html" onclick="launchTarget(event,'unit2_questions.html')" class="sub-btn sub-btn-blue">
                 <span class="sub-label">Sample Questions</span>
-                <svg class="sub-arrow text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="sub-arrow c-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </a>
@@ -258,29 +258,32 @@
 
         <!-- Unit 3 Group -->
         <div class="unit-group">
-            <!-- Unit 3 Main Button -->
             <a href="unit3.html" onclick="launchTarget(event,'unit3.html')" class="btn-wrap btn-wrap-purple">
-                <div class="btn-pill-outer btn-pill-outer-purple">
-                    <div class="btn-pill-inner btn-pill-inner-purple">
+                <!-- Rotating light rays -->
+                <div class="ray1"></div>
+                <div class="ray2"></div>
+                <!-- Ambient pulse blob -->
+                <div class="ambient"></div>
+                <!-- Glossy border pill -->
+                <div class="btn-pill-outer">
+                    <div class="btn-pill-inner">
                         <div class="btn-left">
-                            <!-- Book icon -->
-                            <svg class="btn-icon btn-icon-left text-purple-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <svg class="ico ico-left c-purple" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
-                            <div class="btn-divider"></div>
+                            <div class="divider"></div>
                             <span class="btn-label">Unit 3</span>
                         </div>
-                        <svg class="btn-arrow text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <svg class="arrow c-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                         </svg>
                     </div>
                 </div>
             </a>
 
-            <!-- Unit 3 Sample Questions Button -->
             <a href="unit3_questions.html" onclick="launchTarget(event,'unit3_questions.html')" class="sub-btn sub-btn-purple">
                 <span class="sub-label">Sample Questions</span>
-                <svg class="sub-arrow text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="sub-arrow c-purple" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </a>
@@ -288,36 +291,27 @@
 
     </div>
 
-    <!-- Seamless Fullscreen Presentation Stage -->
+    <!-- Seamless Fullscreen Stage -->
     <iframe id="stage-frame" style="position:fixed;inset:0;width:100vw;height:100vh;border:none;z-index:50;background:#000;display:none;" allow="fullscreen"></iframe>
 
-    <!-- Fullscreen Transition Engine -->
     <script>
-        const stageFrame = document.getElementById('stage-frame');
+        const stageFrame   = document.getElementById('stage-frame');
         const hubContainer = document.getElementById('hub-container');
 
         function launchTarget(event, url) {
             if (event) event.preventDefault();
 
-            // Request native full-complete fullscreen
             const docEl = document.documentElement;
-            const requestFs = docEl.requestFullscreen ||
-                              docEl.webkitRequestFullscreen ||
-                              docEl.mozRequestFullScreen ||
-                              docEl.msRequestFullscreen;
-
+            const requestFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
             if (requestFs && !document.fullscreenElement) {
-                requestFs.call(docEl).catch(err => {
-                    console.warn('Fullscreen blocked:', err);
-                });
+                requestFs.call(docEl).catch(err => console.warn('Fullscreen blocked:', err));
             }
 
-            // Load into seamless stage frame (prevents browser from canceling fullscreen on navigation)
             stageFrame.src = url;
             stageFrame.style.display = 'block';
             hubContainer.style.opacity = '0';
             hubContainer.style.pointerEvents = 'none';
-            setTimeout(() => { hubContainer.style.display = 'none'; }, 300);
+            setTimeout(() => { hubContainer.style.display = 'none'; }, 350);
         }
 
         function closeStage() {
@@ -330,13 +324,9 @@
             });
         }
 
-        // Listen for Home navigation from child deck
         window.addEventListener('message', (e) => {
-            if (e.data === 'goHome' || e.data === 'closeStage') {
-                closeStage();
-            }
+            if (e.data === 'goHome' || e.data === 'closeStage') closeStage();
         });
     </script>
-
 </body>
 </html>
