@@ -3,132 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Computing & Virtualization Masterclass</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Outfit"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Cloud Computing &amp; Virtualization Masterclass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
     <style>
-        body { 
-            background-color: #000000; 
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #000000;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             user-select: none;
         }
 
-        .glow-blue {
-            box-shadow: 0 0 50px -5px rgba(37, 99, 235, 0.35), inset 0 0 20px rgba(59, 130, 246, 0.1);
+        /* ─────────── Layout ─────────── */
+        #hub-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3.5rem;
+            width: 100%;
+            max-width: 900px;
+            padding: 2rem;
+            transition: opacity 0.3s;
         }
-        .glow-blue:hover {
-            box-shadow: 0 0 75px 5px rgba(37, 99, 235, 0.55), inset 0 0 25px rgba(59, 130, 246, 0.2);
-            border-color: rgba(96, 165, 250, 0.6);
+
+        @media (min-width: 768px) {
+            #hub-container { flex-direction: row; gap: 5rem; }
+        }
+
+        .unit-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        /* ─────────── Ambient Backlight ─────────── */
+        .btn-wrap {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Pulsing ambient glow layer — always visible */
+        .btn-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 9999px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(18px);
+            transition: opacity 0.5s ease;
+            animation: ambientPulse 4s ease-in-out infinite;
+        }
+
+        .btn-wrap-blue::before {
+            background: radial-gradient(ellipse, rgba(37,99,235,0.55) 0%, rgba(96,165,250,0.3) 50%, transparent 75%);
+        }
+        .btn-wrap-purple::before {
+            background: radial-gradient(ellipse, rgba(168,85,247,0.55) 0%, rgba(192,132,252,0.3) 50%, transparent 75%);
+        }
+
+        @keyframes ambientPulse {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50%       { opacity: 1;    transform: scale(1.06); }
+        }
+
+        /* Glossy border pill wrapper */
+        .btn-pill-outer {
+            position: relative;
+            width: 100%;
+            border-radius: 9999px;
+            padding: 1.5px;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-pill-outer-blue {
+            background: linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(96,165,250,0.12) 40%, rgba(37,99,235,0.22) 100%);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.75), 0 0 40px -8px rgba(37,99,235,0.35);
+        }
+        .btn-pill-outer-purple {
+            background: linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(192,132,252,0.12) 40%, rgba(168,85,247,0.22) 100%);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.75), 0 0 40px -8px rgba(168,85,247,0.35);
+        }
+
+        /* Hover — lift + stronger glow */
+        .btn-wrap:hover .btn-pill-outer-blue {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.85), 0 0 65px -4px rgba(37,99,235,0.65);
+        }
+        .btn-wrap:hover .btn-pill-outer-purple {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.85), 0 0 65px -4px rgba(168,85,247,0.65);
+        }
+        .btn-wrap:active .btn-pill-outer { transform: scale(0.97); }
+
+        /* Inner glass surface */
+        .btn-pill-inner {
+            width: 100%;
+            height: 88px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glassy sheen overlay */
+        .btn-pill-inner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 50%;
+            border-radius: 9999px 9999px 0 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.10) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .btn-pill-inner-blue   { background: rgba(6,11,23,0.82); }
+        .btn-pill-inner-purple { background: rgba(17,7,28,0.82); }
+
+        .btn-left {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+
+        .btn-divider {
+            width: 1px;
+            height: 2rem;
+            background: rgba(255,255,255,0.18);
+            flex-shrink: 0;
+        }
+
+        .btn-label {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-icon {
+            width: 1.9rem; height: 1.9rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .btn-wrap:hover .btn-icon-left  { transform: scale(1.1); }
+
+        .btn-arrow {
+            width: 1.4rem; height: 1.4rem;
+            transition: transform 0.3s ease;
+        }
+        .btn-wrap:hover .btn-arrow { transform: translateX(5px); }
+
+        .text-blue-400   { color: #60a5fa; }
+        .text-purple-400 { color: #c084fc; }
+
+        /* ─────────── Sub-buttons ─────────── */
+        .sub-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 260px;
+            height: 44px;
+            border-radius: 9999px;
+            padding: 0 1.25rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            z-index: 1;
+        }
+
+        .sub-btn-blue   { background: rgba(5,8,17,0.9); }
+        .sub-btn-purple { background: rgba(13,5,23,0.9); }
+
+        .sub-btn:hover {
             transform: translateY(-2px);
         }
+        .sub-btn-blue:hover   { border-color: rgba(96,165,250,0.45); box-shadow: 0 0 28px rgba(37,99,235,0.3); }
+        .sub-btn-purple:hover { border-color: rgba(192,132,252,0.45); box-shadow: 0 0 28px rgba(168,85,247,0.3); }
+        .sub-btn:active { transform: scale(0.97); }
 
-        .glow-purple {
-            box-shadow: 0 0 50px -5px rgba(168, 85, 247, 0.35), inset 0 0 20px rgba(192, 132, 252, 0.1);
+        .sub-label {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #d1d5db;
+            transition: color 0.2s;
         }
-        .glow-purple:hover {
-            box-shadow: 0 0 75px 5px rgba(168, 85, 247, 0.55), inset 0 0 25px rgba(192, 132, 252, 0.2);
-            border-color: rgba(216, 180, 254, 0.6);
-            transform: translateY(-2px);
-        }
+        .sub-btn:hover .sub-label { color: #ffffff; }
 
-        .sub-glow-blue:hover {
-            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
-            border-color: rgba(96, 165, 250, 0.5);
-            transform: translateY(-1px);
+        .sub-arrow {
+            width: 1rem; height: 1rem;
+            transition: transform 0.3s;
         }
-
-        .sub-glow-purple:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
-            border-color: rgba(216, 180, 254, 0.5);
-            transform: translateY(-1px);
-        }
+        .sub-btn:hover .sub-arrow { transform: translateX(4px); }
     </style>
 </head>
-<body class="min-h-screen w-screen bg-black flex items-center justify-center p-4">
+<body>
 
     <!-- 4 Buttons Centered Container -->
-    <div id="hub-container" class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 max-w-5xl w-full transition-opacity duration-300">
-        
+    <div id="hub-container">
+
         <!-- Unit 2 Group -->
-        <div class="flex flex-col items-center gap-5 w-full max-w-[360px]">
+        <div class="unit-group">
             <!-- Unit 2 Main Button -->
-            <a href="unit2.html" onclick="launchTarget(event, 'unit2.html')" class="glow-blue group w-full h-[96px] rounded-full bg-[#060b17]/80 backdrop-blur-xl border border-blue-500/35 px-8 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
-                <div class="flex items-center gap-5">
-                    <!-- Book Icon -->
-                    <svg class="w-8 h-8 text-blue-400 shrink-0 group-hover:scale-105 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    <!-- Divider -->
-                    <div class="h-8 w-[1px] bg-white/20"></div>
-                    <!-- Unit 2 Label -->
-                    <span class="text-3xl font-medium text-white tracking-wide">Unit 2</span>
+            <a href="unit2.html" onclick="launchTarget(event,'unit2.html')" class="btn-wrap btn-wrap-blue">
+                <div class="btn-pill-outer btn-pill-outer-blue">
+                    <div class="btn-pill-inner btn-pill-inner-blue">
+                        <div class="btn-left">
+                            <!-- Book icon -->
+                            <svg class="btn-icon btn-icon-left text-blue-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                            <div class="btn-divider"></div>
+                            <span class="btn-label">Unit 2</span>
+                        </div>
+                        <svg class="btn-arrow text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
-                <!-- Right Arrow -->
-                <svg class="w-6 h-6 text-blue-400 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
             </a>
 
             <!-- Unit 2 Sample Questions Button -->
-            <a href="unit2_questions.html" onclick="launchTarget(event, 'unit2_questions.html')" class="sub-glow-blue group w-[260px] h-[48px] rounded-full bg-[#050811]/90 backdrop-blur-lg border border-blue-500/25 px-6 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
-                <span class="text-sm font-normal text-gray-300 group-hover:text-white transition-colors duration-200">Sample Questions</span>
-                <svg class="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            <a href="unit2_questions.html" onclick="launchTarget(event,'unit2_questions.html')" class="sub-btn sub-btn-blue">
+                <span class="sub-label">Sample Questions</span>
+                <svg class="sub-arrow text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </a>
         </div>
 
         <!-- Unit 3 Group -->
-        <div class="flex flex-col items-center gap-5 w-full max-w-[360px]">
+        <div class="unit-group">
             <!-- Unit 3 Main Button -->
-            <a href="unit3.html" onclick="launchTarget(event, 'unit3.html')" class="glow-purple group w-full h-[96px] rounded-full bg-[#11071c]/80 backdrop-blur-xl border border-purple-500/35 px-8 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
-                <div class="flex items-center gap-5">
-                    <!-- Book Icon -->
-                    <svg class="w-8 h-8 text-purple-400 shrink-0 group-hover:scale-105 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    <!-- Divider -->
-                    <div class="h-8 w-[1px] bg-white/20"></div>
-                    <!-- Unit 3 Label -->
-                    <span class="text-3xl font-medium text-white tracking-wide">Unit 3</span>
+            <a href="unit3.html" onclick="launchTarget(event,'unit3.html')" class="btn-wrap btn-wrap-purple">
+                <div class="btn-pill-outer btn-pill-outer-purple">
+                    <div class="btn-pill-inner btn-pill-inner-purple">
+                        <div class="btn-left">
+                            <!-- Book icon -->
+                            <svg class="btn-icon btn-icon-left text-purple-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                            <div class="btn-divider"></div>
+                            <span class="btn-label">Unit 3</span>
+                        </div>
+                        <svg class="btn-arrow text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
-                <!-- Right Arrow -->
-                <svg class="w-6 h-6 text-purple-400 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
             </a>
 
             <!-- Unit 3 Sample Questions Button -->
-            <a href="unit3_questions.html" onclick="launchTarget(event, 'unit3_questions.html')" class="sub-glow-purple group w-[260px] h-[48px] rounded-full bg-[#0d0517]/90 backdrop-blur-lg border border-purple-500/25 px-6 flex items-center justify-between transition-all duration-300 active:scale-95 text-decoration-none cursor-pointer">
-                <span class="text-sm font-normal text-gray-300 group-hover:text-white transition-colors duration-200">Sample Questions</span>
-                <svg class="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            <a href="unit3_questions.html" onclick="launchTarget(event,'unit3_questions.html')" class="sub-btn sub-btn-purple">
+                <span class="sub-label">Sample Questions</span>
+                <svg class="sub-arrow text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </a>
         </div>
 
     </div>
 
-    <!-- Seamless Fullscreen Presentation Stage (Never Drops Out of Fullscreen) -->
-    <iframe id="stage-frame" class="fixed inset-0 w-screen h-screen border-0 z-50 bg-black hidden" allow="fullscreen"></iframe>
+    <!-- Seamless Fullscreen Presentation Stage -->
+    <iframe id="stage-frame" style="position:fixed;inset:0;width:100vw;height:100vh;border:none;z-index:50;background:#000;display:none;" allow="fullscreen"></iframe>
 
-    <!-- Complete Fullscreen Transition Engine -->
+    <!-- Fullscreen Transition Engine -->
     <script>
         const stageFrame = document.getElementById('stage-frame');
         const hubContainer = document.getElementById('hub-container');
@@ -136,33 +299,38 @@
         function launchTarget(event, url) {
             if (event) event.preventDefault();
 
-            // 1. Immediately request native browser full complete fullscreen
+            // Request native full-complete fullscreen
             const docEl = document.documentElement;
-            const requestFs = docEl.requestFullscreen || 
-                              docEl.webkitRequestFullscreen || 
-                              docEl.mozRequestFullScreen || 
+            const requestFs = docEl.requestFullscreen ||
+                              docEl.webkitRequestFullscreen ||
+                              docEl.mozRequestFullScreen ||
                               docEl.msRequestFullscreen;
 
             if (requestFs && !document.fullscreenElement) {
                 requestFs.call(docEl).catch(err => {
-                    console.warn('Fullscreen request dismissed or blocked:', err);
+                    console.warn('Fullscreen blocked:', err);
                 });
             }
 
-            // 2. Load into seamless stage frame without unloading parent page
-            // This prevents browser from auto-canceling fullscreen on page navigation!
+            // Load into seamless stage frame (prevents browser from canceling fullscreen on navigation)
             stageFrame.src = url;
-            stageFrame.classList.remove('hidden');
-            hubContainer.classList.add('hidden');
+            stageFrame.style.display = 'block';
+            hubContainer.style.opacity = '0';
+            hubContainer.style.pointerEvents = 'none';
+            setTimeout(() => { hubContainer.style.display = 'none'; }, 300);
         }
 
         function closeStage() {
             stageFrame.src = 'about:blank';
-            stageFrame.classList.add('hidden');
-            hubContainer.classList.remove('hidden');
+            stageFrame.style.display = 'none';
+            hubContainer.style.display = 'flex';
+            requestAnimationFrame(() => {
+                hubContainer.style.opacity = '1';
+                hubContainer.style.pointerEvents = '';
+            });
         }
 
-        // Listen for Home button navigation from child deck
+        // Listen for Home navigation from child deck
         window.addEventListener('message', (e) => {
             if (e.data === 'goHome' || e.data === 'closeStage') {
                 closeStage();
