@@ -117,6 +117,31 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.7);
         }
     </style>
+    <script>
+        // Restore fullscreen if launched from home page
+        (function() {
+            try {
+                if (sessionStorage.getItem('icc_fullscreen') === '1') {
+                    var el = document.documentElement;
+                    var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+                    if (req && !document.fullscreenElement) {
+                        // Must fire on a user gesture -- listen for first interaction
+                        function tryFS() {
+                            req.call(el).catch(function(){});
+                            document.removeEventListener('click', tryFS);
+                            document.removeEventListener('keydown', tryFS);
+                        }
+                        // Try immediately (works if browser grants without gesture in same session)
+                        req.call(el).catch(function() {
+                            // Fallback: wait for first click/key
+                            document.addEventListener('click', tryFS, {once: true});
+                            document.addEventListener('keydown', tryFS, {once: true});
+                        });
+                    }
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body class="flex flex-col h-screen w-full relative antialiased selection:bg-accent-indigo/30 selection:text-white">
 

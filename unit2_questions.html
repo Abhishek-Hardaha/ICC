@@ -77,6 +77,31 @@
             overflow-y: auto;
         }
     </style>
+    <script>
+        // Restore fullscreen if launched from home page
+        (function() {
+            try {
+                if (sessionStorage.getItem('icc_fullscreen') === '1') {
+                    var el = document.documentElement;
+                    var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+                    if (req && !document.fullscreenElement) {
+                        // Must fire on a user gesture -- listen for first interaction
+                        function tryFS() {
+                            req.call(el).catch(function(){});
+                            document.removeEventListener('click', tryFS);
+                            document.removeEventListener('keydown', tryFS);
+                        }
+                        // Try immediately (works if browser grants without gesture in same session)
+                        req.call(el).catch(function() {
+                            // Fallback: wait for first click/key
+                            document.addEventListener('click', tryFS, {once: true});
+                            document.addEventListener('keydown', tryFS, {once: true});
+                        });
+                    }
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between select-none bg-[#050508]">
 
@@ -1827,7 +1852,9 @@
             <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0 border border-emerald-500/30 mt-0.5">4</span>
             <div>
                 <strong class="text-white font-semibold text-xs sm:text-sm block mb-0.5">Use Case Justification</strong>
-                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">Production Databases $ightarrow$ Type 1 (ESXi) for raw I/O throughput and zero host OS overhead. Local Developer Workstations $ightarrow$ Type 2 (VirtualBox) for GUI convenience, quick setup, and host desktop integration.</p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">Production Databases $
+ightarrow$ Type 1 (ESXi) for raw I/O throughput and zero host OS overhead. Local Developer Workstations $
+ightarrow$ Type 2 (VirtualBox) for GUI convenience, quick setup, and host desktop integration.</p>
             </div>
         </div>
         
@@ -2655,7 +2682,8 @@
   <!-- Hash Lookup Table in Middle -->
   <rect x="180" y="25" width="120" height="85" rx="8" fill="#312e81" stroke="#818cf8"/>
   <text x="240" y="48" fill="#c7d2fe" font-size="10" font-weight="bold" text-anchor="middle">HASH TABLE</text>
-  <rect x="190" y="58" width="100" height="18" rx="3" fill="#1e1b4b"/><text x="240" y="70" fill="#a5b4fc" font-size="8" text-anchor="middle">PC $ightarrow$ Cache Addr</text>
+  <rect x="190" y="58" width="100" height="18" rx="3" fill="#1e1b4b"/><text x="240" y="70" fill="#a5b4fc" font-size="8" text-anchor="middle">PC $
+ightarrow$ Cache Addr</text>
   <rect x="190" y="80" width="100" height="18" rx="3" fill="#1e1b4b"/><text x="240" y="93" fill="#34d399" font-size="8" text-anchor="middle">Direct Pointer Hit</text>
 
   <!-- Code Cache Container -->
@@ -3430,7 +3458,8 @@
   
   <rect x="40" y="110" width="205" height="50" rx="6" fill="#164e63" stroke="#0891b2"/>
   <text x="142" y="130" fill="#cffafe" font-size="10" font-weight="bold" text-anchor="middle">WINE Translation Layer</text>
-  <text x="142" y="147" fill="#a5f3fc" font-size="8" text-anchor="middle">Win32 API $ightarrow$ Linux POSIX / glibc</text>
+  <text x="142" y="147" fill="#a5f3fc" font-size="8" text-anchor="middle">Win32 API $
+ightarrow$ Linux POSIX / glibc</text>
 
   <rect x="40" y="170" width="205" height="35" rx="6" fill="#1e1b4b"/><text x="142" y="192" fill="#c7d2fe" font-size="9" text-anchor="middle">Linux Host OS Kernel</text>
   <rect x="40" y="215" width="205" height="35" rx="6" fill="#1e293b"/><text x="142" y="237" fill="#94a3b8" font-size="9" text-anchor="middle">Physical Hardware</text>
@@ -3728,7 +3757,9 @@
   <!-- Graph Axis -->
   <line x1="60" y1="260" x2="480" y2="260" stroke="#64748b" stroke-width="2"/>
   <line x1="60" y1="260" x2="60" y2="40" stroke="#64748b" stroke-width="2"/>
-  <text x="270" y="295" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle">Time (Normal Days $ightarrow$ Festival Sale $ightarrow$ Normal)</text>
+  <text x="270" y="295" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle">Time (Normal Days $
+ightarrow$ Festival Sale $
+ightarrow$ Normal)</text>
   <text x="30" y="150" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle" transform="rotate(-90 30 150)">Compute Load</text>
 
   <!-- High Static Line (Wasted CAPEX) -->
@@ -3840,7 +3871,9 @@
             <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0 border border-emerald-500/30 mt-0.5">4</span>
             <div>
                 <strong class="text-white font-semibold text-xs sm:text-sm block mb-0.5">Workload Fit</strong>
-                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">HPC $ightarrow$ Complex simulation with heavy node-to-node data exchange. Grid $ightarrow$ Embarrassingly parallel batch calculations (e.g. SETI@home, BLAST sequence search).</p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">HPC $
+ightarrow$ Complex simulation with heavy node-to-node data exchange. Grid $
+ightarrow$ Embarrassingly parallel batch calculations (e.g. SETI@home, BLAST sequence search).</p>
             </div>
         </div>
         

@@ -302,42 +302,29 @@
 
     </div>
 
-    <!-- Seamless Fullscreen Stage -->
-    <iframe id="stage-frame" style="position:fixed;inset:0;width:100vw;height:100vh;border:none;z-index:50;background:#000;display:none;" allow="fullscreen"></iframe>
-
     <script>
-        const stageFrame   = document.getElementById('stage-frame');
-        const hubContainer = document.getElementById('hub-container');
-
         function launchTarget(event, url) {
             if (event) event.preventDefault();
 
+            // Step 1 — request fullscreen immediately within the user gesture
             const docEl = document.documentElement;
-            const requestFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
-            if (requestFs && !document.fullscreenElement) {
-                requestFs.call(docEl).catch(err => console.warn('Fullscreen blocked:', err));
-            }
+            const requestFs = docEl.requestFullscreen
+                           || docEl.webkitRequestFullscreen
+                           || docEl.mozRequestFullScreen
+                           || docEl.msRequestFullscreen;
 
-            stageFrame.src = url;
-            stageFrame.style.display = 'block';
-            hubContainer.style.opacity = '0';
-            hubContainer.style.pointerEvents = 'none';
-            setTimeout(() => { hubContainer.style.display = 'none'; }, 350);
+            const fsPromise = (requestFs && !document.fullscreenElement)
+                ? requestFs.call(docEl)
+                : Promise.resolve();
+
+            // Step 2 — mark that sub-pages should stay in fullscreen
+            try { sessionStorage.setItem('icc_fullscreen', '1'); } catch(e) {}
+
+            // Step 3 — navigate after fullscreen is granted (or immediately if unsupported)
+            fsPromise
+                .then(() => { window.location.href = url; })
+                .catch(() => { window.location.href = url; });
         }
-
-        function closeStage() {
-            stageFrame.src = 'about:blank';
-            stageFrame.style.display = 'none';
-            hubContainer.style.display = 'flex';
-            requestAnimationFrame(() => {
-                hubContainer.style.opacity = '1';
-                hubContainer.style.pointerEvents = '';
-            });
-        }
-
-        window.addEventListener('message', (e) => {
-            if (e.data === 'goHome' || e.data === 'closeStage') closeStage();
-        });
     </script>
 </body>
 </html>

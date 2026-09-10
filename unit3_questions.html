@@ -77,6 +77,31 @@
             overflow-y: auto;
         }
     </style>
+    <script>
+        // Restore fullscreen if launched from home page
+        (function() {
+            try {
+                if (sessionStorage.getItem('icc_fullscreen') === '1') {
+                    var el = document.documentElement;
+                    var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+                    if (req && !document.fullscreenElement) {
+                        // Must fire on a user gesture -- listen for first interaction
+                        function tryFS() {
+                            req.call(el).catch(function(){});
+                            document.removeEventListener('click', tryFS);
+                            document.removeEventListener('keydown', tryFS);
+                        }
+                        // Try immediately (works if browser grants without gesture in same session)
+                        req.call(el).catch(function() {
+                            // Fallback: wait for first click/key
+                            document.addEventListener('click', tryFS, {once: true});
+                            document.addEventListener('keydown', tryFS, {once: true});
+                        });
+                    }
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between select-none bg-[#050508]">
 
@@ -297,7 +322,8 @@
   <rect x="45" y="120" width="190" height="40" rx="6" fill="#450a0a" stroke="#dc2626"/>
   <text x="140" y="140" fill="#fca5a5" font-size="10" font-weight="bold" text-anchor="middle">App Server 1 [CRASHED]</text>
   <line x1="45" y1="120" x2="235" y2="160" stroke="#ef4444" stroke-width="3"/>
-  <text x="140" y="180" fill="#f87171" font-size="8" text-anchor="middle">ALB Health Check Fails $ightarrow$ Isolated</text>
+  <text x="140" y="180" fill="#f87171" font-size="8" text-anchor="middle">ALB Health Check Fails $
+ightarrow$ Isolated</text>
 
   <!-- Right: AZ-2 Server (Healthy Active) -->
   <rect x="290" y="85" width="220" height="110" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
@@ -1851,7 +1877,10 @@
   <!-- Tier 1: Public Subnet -->
   <rect x="30" y="20" width="480" height="70" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
   <text x="270" y="42" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">TIER 1: PRESENTATION TIER (PUBLIC SUBNET)</text>
-  <text x="270" y="60" fill="#e2e8f0" font-size="9" text-anchor="middle">Internet Gateway $ightarrow$ Route 53 $ightarrow$ CloudFront CDN $ightarrow$ Application Load Balancer</text>
+  <text x="270" y="60" fill="#e2e8f0" font-size="9" text-anchor="middle">Internet Gateway $
+ightarrow$ Route 53 $
+ightarrow$ CloudFront CDN $
+ightarrow$ Application Load Balancer</text>
   <text x="270" y="78" fill="#94a3b8" font-size="8" text-anchor="middle">Only Port 443 (HTTPS) open to the internet</text>
 
   <!-- Tier 2: Private Subnet -->
@@ -2437,7 +2466,9 @@
             <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0 border border-emerald-500/30 mt-0.5">5</span>
             <div>
                 <strong class="text-white font-semibold text-xs sm:text-sm block mb-0.5">The Publish-Find-Bind Triangle</strong>
-                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">1. Provider PUBLISHES interface to Registry $ightarrow$ 2. Consumer FINDS matching service in Registry $ightarrow$ 3. Consumer BINDS and executes service over network.</p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">1. Provider PUBLISHES interface to Registry $
+ightarrow$ 2. Consumer FINDS matching service in Registry $
+ightarrow$ 3. Consumer BINDS and executes service over network.</p>
             </div>
         </div>
         
@@ -2650,7 +2681,8 @@
 
   <rect x="155" y="70" width="210" height="42" rx="5" fill="#3b0764"/>
   <text x="260" y="90" fill="#d8b4fe" font-size="9" font-weight="bold" text-anchor="middle">1. Protocol Adapter</text>
-  <text x="260" y="103" fill="#e9d5ff" font-size="8" text-anchor="middle">HTTP $ightarrow$ JMS Message Queue</text>
+  <text x="260" y="103" fill="#e9d5ff" font-size="8" text-anchor="middle">HTTP $
+ightarrow$ JMS Message Queue</text>
 
   <rect x="155" y="125" width="210" height="42" rx="5" fill="#3b0764"/>
   <text x="260" y="145" fill="#d8b4fe" font-size="9" font-weight="bold" text-anchor="middle">2. Data Transformer (XSLT)</text>
@@ -3008,7 +3040,13 @@
 
                 <!-- Clean Pen & Paper Sketch Note -->
                 <div class="mt-2.5 pt-2 border-t border-white/10 text-xs font-mono text-purple-200 bg-[#06070c] border border-white/10 p-2.5 rounded-xl leading-relaxed shrink-0">
-                    <span class="text-purple-400 font-bold">✎ Pen &amp; Paper:</span> Draw a 7-step horizontal pipeline with arrows: Decompose $ightarrow$ Map $ightarrow$ Schedule $ightarrow$ Communicate $ightarrow$ Synchronize $ightarrow$ Execute $ightarrow$ Aggregate.
+                    <span class="text-purple-400 font-bold">✎ Pen &amp; Paper:</span> Draw a 7-step horizontal pipeline with arrows: Decompose $
+ightarrow$ Map $
+ightarrow$ Schedule $
+ightarrow$ Communicate $
+ightarrow$ Synchronize $
+ightarrow$ Execute $
+ightarrow$ Aggregate.
                 </div>
             </div>
 
@@ -3072,7 +3110,9 @@
             <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0 border border-emerald-500/30 mt-0.5">1</span>
             <div>
                 <strong class="text-white font-semibold text-xs sm:text-sm block mb-0.5">1. Bit-Level Parallelism</strong>
-                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">Increases processor word size (e.g. 16-bit $ightarrow$ 32-bit $ightarrow$ 64-bit). Reduces the number of clock cycles required to execute arithmetic operations on large integers.</p>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">Increases processor word size (e.g. 16-bit $
+ightarrow$ 32-bit $
+ightarrow$ 64-bit). Reduces the number of clock cycles required to execute arithmetic operations on large integers.</p>
             </div>
         </div>
         
@@ -3131,7 +3171,8 @@
   <rect x="25" y="25" width="235" height="130" rx="8" fill="#0f172a" stroke="#38bdf8"/>
   <text x="142" y="48" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1. BIT-LEVEL PARALLELISM</text>
   <rect x="40" y="60" width="205" height="35" rx="4" fill="#1e293b"/>
-  <text x="142" y="82" fill="#93c5fd" font-size="9" text-anchor="middle">32-bit $ightarrow$ 64-bit ALU Word Expansion</text>
+  <text x="142" y="82" fill="#93c5fd" font-size="9" text-anchor="middle">32-bit $
+ightarrow$ 64-bit ALU Word Expansion</text>
   <text x="142" y="115" fill="#94a3b8" font-size="8" text-anchor="middle">Reduces instructions per 64-bit addition</text>
   <text x="142" y="135" fill="#38bdf8" font-size="8" text-anchor="middle">Silicon / Register Architecture</text>
 
@@ -3616,7 +3657,8 @@
   <rect x="290" y="85" width="220" height="135" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
   <text x="400" y="110" fill="#34d399" font-size="10" font-weight="bold" text-anchor="middle">AZ-b: STANDBY DB (PROMOTED)</text>
   <rect x="305" y="125" width="190" height="42" rx="5" fill="#064e3b" stroke="#059669"/>
-  <text x="400" y="145" fill="#a7f3d0" font-size="9" font-weight="bold" text-anchor="middle">Automatic Promotion $ightarrow$ Primary</text>
+  <text x="400" y="145" fill="#a7f3d0" font-size="9" font-weight="bold" text-anchor="middle">Automatic Promotion $
+ightarrow$ Primary</text>
   <text x="400" y="160" fill="#6ee7b7" font-size="7" text-anchor="middle">DNS CNAME flipped to this node</text>
   <text x="400" y="195" fill="#34d399" font-size="8" font-weight="bold" text-anchor="middle">RPO = 0 • Recovery &lt; 60 Seconds</text>
 
