@@ -66,9 +66,10 @@
             pointer-events: none;
             z-index: 0;
             filter: blur(28px);
-            opacity: 0.65;
+            opacity: 0;               /* hidden at idle */
             mix-blend-mode: screen;
             animation: spinCW 20s linear infinite;
+            transition: opacity 0.5s ease;
             -webkit-mask-image: radial-gradient(ellipse 42% 18% at 50% 50%, black 10%, transparent 70%);
             mask-image:         radial-gradient(ellipse 42% 18% at 50% 50%, black 10%, transparent 70%);
         }
@@ -81,12 +82,16 @@
             pointer-events: none;
             z-index: 0;
             filter: blur(36px);
-            opacity: 0.5;
+            opacity: 0;               /* hidden at idle */
             mix-blend-mode: screen;
             animation: spinCCW 30s linear infinite;
+            transition: opacity 0.5s ease;
             -webkit-mask-image: radial-gradient(ellipse 48% 22% at 50% 50%, black 10%, transparent 70%);
             mask-image:         radial-gradient(ellipse 48% 22% at 50% 50%, black 10%, transparent 70%);
         }
+        /* Reveal rays on hover */
+        .btn-wrap:hover .ray1 { opacity: 0.65; }
+        .btn-wrap:hover .ray2 { opacity: 0.5;  }
 
         .btn-wrap-blue  .ray1 { background: conic-gradient(from 0deg at 50% 50%, transparent 0%, rgba(37,99,235,0.85) 10%, transparent 28%, rgba(56,189,248,0.75) 48%, transparent 65%, rgba(99,102,241,0.7) 80%, transparent 95%); }
         .btn-wrap-blue  .ray2 { background: conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(59,130,246,0.9) 14%, transparent 35%, rgba(147,197,253,0.7) 58%, transparent 80%); }
@@ -96,7 +101,7 @@
         @keyframes spinCW  { from { transform: translate(-50%,-50%) rotate(0deg);   } to { transform: translate(-50%,-50%) rotate(360deg);  } }
         @keyframes spinCCW { from { transform: translate(-50%,-50%) rotate(0deg);   } to { transform: translate(-50%,-50%) rotate(-360deg); } }
 
-        /* ─── Core ambient pulse (always on) ─── */
+        /* ─── Core ambient pulse (hover-triggered) ─── */
         .ambient {
             position: absolute;
             inset: -12px;
@@ -104,10 +109,14 @@
             pointer-events: none;
             z-index: 0;
             filter: blur(20px);
+            opacity: 0;               /* hidden at idle */
+            transition: opacity 0.5s ease;
             animation: ambientPulse 5s ease-in-out infinite;
         }
         .btn-wrap-blue   .ambient { background: radial-gradient(ellipse, rgba(37,99,235,0.5) 0%, rgba(96,165,250,0.25) 55%, transparent 78%); }
         .btn-wrap-purple .ambient { background: radial-gradient(ellipse, rgba(168,85,247,0.5) 0%, rgba(192,132,252,0.25) 55%, transparent 78%); }
+        /* Reveal ambient on hover */
+        .btn-wrap:hover .ambient { opacity: 1; }
 
         @keyframes ambientPulse {
             0%,100% { opacity: 0.7; transform: scale(1); }
